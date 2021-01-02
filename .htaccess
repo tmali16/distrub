@@ -1,0 +1,28 @@
+RewriteEngine on 
+
+#RewriteCond %{HTTP_HOST} ^(www.)?*$ 
+RewriteCond %{REQUEST_URI} !^/public/ 
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteRule ^(.*)$ /public/$1 
+#RewriteCond %{HTTP_HOST} ^(www.)?*$ 
+RewriteRule ^(/)?$ public/index.php [L]
+
+# Disable Directory listing
+Options -Indexes
+
+# block files which needs to be hidden // in here specify .example extension of the file
+<Files ~ "\.(env|json|config.js|md|gitignore|gitattributes|lock)$">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# in here specify full file name sperator '|'
+<Files ~ "\..(artisan)$">
+    Order allow,deny
+    Deny from all
+</Files>
+<Files ~ "\..(php|php)$">
+    Order allow,deny
+    Deny from all
+</Files>
