@@ -30,8 +30,18 @@ Route::get('/users/distrub', 'DistrubController@index')->name('distrub_index');
 Route::get('/empleyee', 'OperatorsController@index')->name('empleyee');
 Route::group(['prefix' => 'api'], function () {
     Route::get('/rank/list', "OperatorsController@getRanks");
+    Route::get('/prison/list', "PrisionsController@list");
+
     Route::get('/employe/list', "OperatorsController@list");
     Route::post('/employe/add', "OperatorsController@store");
     Route::post('/employe/update', "OperatorsController@edit");
     Route::post('/employe/delete', "OperatorsController@delete");
+
+    Route::post('/distrub/list', "DistrubController@list");
+    Route::post('/distrub/add', "DistrubController@store");
+    Route::get('/distrub/detail/{id}', "DistrubController@show");
+    Route::post('/distrub/update', "DistrubController@edit");
+    Route::post('/distrub/delete', "DistrubController@delete");
+
+    Route::post('/distrub/chart', "DistrubController@chart");
 });

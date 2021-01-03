@@ -9,9 +9,10 @@
 
 @import '~animate.css/animate.min.css';
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
+// @import '~select2/dist/css/select2.min.css';
 
 $select-width: 220px;
-$select-height: 40px; 
+$select-height: 40px;
 $select-color: #fff;
 $select-background: #c0392b;
 
@@ -53,7 +54,7 @@ html, body{
     height: $select-height;
   }
   .select-styled {
-    position: absolute; 
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
@@ -82,9 +83,9 @@ html, body{
       }
     }
   }
-  
+
   .select-options {
-    display: none; 
+    display: none;
     position: absolute;
     top: 100%;
     right: 0;
@@ -109,3 +110,40 @@ html, body{
       }
     }
   }
+
+.bg-secondary2{
+    background-color: rgb(214, 214, 214);
+}
+
+
+.select2-container{
+    width: 100% !important;
+}
+.deleteFile{
+    .deleteIcon{
+        display: none;
+    }
+    &:hover{
+        .deleteIcon{
+            display: block;
+            position: absolute;
+            color: #ff0000;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0, 0.7);
+            // position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            // span{
+            // }
+            cursor: pointer;
+        }
+        // display: block;
+    }
+
+}
+.error-invalid{
+    color: #ff0000;
+    font-size: 10px;
+}

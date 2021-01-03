@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Distrub extends Model
 {
     //
+    protected $with = [
+        'media','operator.rank','prision', 'service','distrubType'
+    ];
 
-
-    public function file()
+    public function media()
     {
-        return $this->belongsToMany('App\Models\Distrub', 'distrub_files', 'media_id', 'distrub_id');
+        return $this->belongsToMany('App\Models\Media', 'distrub_media');
     }
 
     public function user()
@@ -31,6 +33,11 @@ class Distrub extends Model
 
     public function service()
     {
-        return $this->hasOne('App\Models\Service', 'id', 'serviced');
+        return $this->hasOne('App\Models\Services', 'id', 'serviced');
     }
+    public function distrubType()
+    {
+        return $this->hasOne("App\Models\DistrubType", "id", "distrub_type");
+    }
+
 }

@@ -26,17 +26,17 @@
             <div class="container-fluid">
                 <div class="col-12 my-5" style="height: 50px;">
                     <div class="row">
-                        <div class="col-4">                            
+                        <div class="col-4">
                             <div class="card border-0 bg-transparent text-white">
                                 <div class="card-body pr-2 pt-2 pb-0 text-white">
-                                    <i class="fa fa-angle-double-left"></i> <label class="card-title h5 ml-3 mb-0"> @yield('page')</label>
+                                    <a class="btn btn-sm text-white " href="{{url()->previous()}}"><i class="fa fa-angle-double-left"></i></a> <label class="card-title h5 ml-3 mb-0"> @yield('page')</label>
                                     <p class="card-text breads">
                                         <a class="" href="{{route("home")}}">Главная</a>
                                         @if (\Route::currentRouteName() != 'home')
                                         <i class="fa fa-angle-right"></i>
                                         <a class="" href="{{route("home")}}">@yield('page')</a>
                                         @endif
-                                        
+
                                     </p>
                                 </div>
                             </div>

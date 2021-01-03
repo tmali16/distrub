@@ -13,10 +13,10 @@ class CreateDistrubFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('distrub_files', function (Blueprint $table) {
+        Schema::create('distrub_media', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('media_id');
             $table->bigInteger('distrub_id');
+            $table->bigInteger('media_id');
             $table->timestamps();
         });
     }

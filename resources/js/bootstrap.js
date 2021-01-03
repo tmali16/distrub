@@ -11,6 +11,8 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    //require("select2/dist/js/select2")
+    //$.fn.select2.defaults.set('amdLanguageBase', 'select2/i18n/');
 } catch (e) {}
 
 /**

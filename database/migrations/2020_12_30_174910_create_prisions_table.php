@@ -15,6 +15,7 @@ class CreatePrisionsTable extends Migration
     {
         Schema::create('prisions', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
             $table->timestamps();
         });
     }

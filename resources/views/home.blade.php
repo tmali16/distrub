@@ -3,7 +3,7 @@
 @section('page')
     {{$page}}
 @endsection
-@section('content')    
+@section('content')
 <div class="col-md-10">
     <div class="card border-primary">
         <div class="card-header bg-primary text-white "> {{ __('Главная') }}</div>
@@ -13,7 +13,8 @@
                     {{ session('status') }}
                 </div>
             @endif
+            <linechart-component></linechart-component>
         </div>
     </div>
-</div>    
+</div>
 @endsection

@@ -20,7 +20,7 @@ class OperatorsController extends Controller
 
     public function list()
     {
-        $data = Operators::with('rank')->paginate(2);
+        $data = Operators::with('rank')->paginate(10);
         $headers = [];
         return response()->json($data, 200, $headers);
     }
@@ -33,7 +33,7 @@ class OperatorsController extends Controller
     }
 
     public function store(Request $request)
-    {        
+    {
         $validator = Validator::make($request->all(), [
             'fname' => ['required', 'min:3'],
             'name' => ['required', 'min:3'],
@@ -43,7 +43,7 @@ class OperatorsController extends Controller
             $data = [
                 'status'=>500,
                 'data'=>$validator->messages()
-            ];            
+            ];
         }else{
             $operat = new Operators();
             $operat->fname = $request->input("fname");
@@ -62,7 +62,7 @@ class OperatorsController extends Controller
                 ];
             }
         }
-        return response()->json($data, 200);   
+        return response()->json($data, 200);
     }
 
     public function edit(Request $request)
@@ -77,7 +77,7 @@ class OperatorsController extends Controller
             $data = [
                 'status'=>500,
                 'data'=>$validator->messages()
-            ];            
+            ];
         }else{
             $id = $request->input("id");
             $operat = Operators::find($id);
@@ -97,7 +97,7 @@ class OperatorsController extends Controller
                 ];
             }
         }
-        return response()->json($data, 200);  
+        return response()->json($data, 200);
     }
     public function delete(Request $request)
     {
@@ -111,7 +111,7 @@ class OperatorsController extends Controller
             $data = [
                 'status'=>500,
                 'data'=>$validator->messages()
-            ];            
+            ];
         }else{
             $id = $request->input("id");
             $operat = Operators::find($id);
@@ -127,6 +127,6 @@ class OperatorsController extends Controller
                 ];
             }
         }
-        return response()->json($data, 200);  
+        return response()->json($data, 200);
     }
 }
