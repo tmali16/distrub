@@ -20,6 +20,7 @@ class CreateOperatorsTable extends Migration
             $table->string('lname')->nullable()->default(null);
             $table->bigInteger('rank_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

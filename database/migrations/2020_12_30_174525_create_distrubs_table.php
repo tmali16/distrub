@@ -29,6 +29,7 @@ class CreateDistrubsTable extends Migration
             $table->bigInteger("operator_id");
             $table->bigInteger("user_id");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
