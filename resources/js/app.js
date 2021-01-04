@@ -29,6 +29,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.component('employe-component', require('./components/Employe.vue').default);
 Vue.component('distrub-component', require('./components/Distrub.vue').default);
+Vue.component('directory-component', require('./components/directory.vue').default);
 Vue.component('linechart-component', require('./components/LineChart.vue').default);
 
 /**

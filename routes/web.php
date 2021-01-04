@@ -28,6 +28,11 @@ Route::post('/users/delete/', 'HomeController@userDelete')->name('user_delete');
 Route::get('/users/distrub', 'DistrubController@index')->name('distrub_index');
 
 Route::get('/empleyee', 'OperatorsController@index')->name('empleyee');
+
+Route::get('/directory', 'ServicesController@index')->name('directory');
+
+
+
 Route::group(['prefix' => 'api'], function () {
     Route::get('/rank/list', "OperatorsController@getRanks");
     Route::get('/prison/list', "PrisionsController@list");
@@ -42,6 +47,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/distrub/detail/{id}', "DistrubController@show");
     Route::post('/distrub/update', "DistrubController@edit");
     Route::post('/distrub/delete', "DistrubController@delete");
+    
+    
 
     Route::post('/distrub/chart', "DistrubController@chart");
 });
