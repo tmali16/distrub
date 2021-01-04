@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class DistrubTypeController extends Controller
 {
+
+    private $status = 200;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +29,36 @@ class DistrubTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try {
+            if($request->id != null){
+                $distrub_type = DistrubType::find($request->id);
+            }else{
+                $distrub_type = new DistrubType();
+            }
+            $distrub_type->name = $request->name;
+            if($distrub_type->save()){
+                $this->status = 200;
+                $data = [
+                    'status'=>$this->status,
+                    'data'=>'Данные добавлены успешно'
+                ];
+            }else{
+                $this->status = 500;
+                $data = [
+                    'status'=>$this->status,
+                    'data'=>'Ошибка добавление данных'
+                ];
+            }
+        } catch (\Exception $th) {
+            $this->status = 500;
+            $data = [
+                'status'=>$this->status,
+                'data'=>'Ошибка при добавлении данных: '.$th->getMessage()
+            ];
+        }
+        return response()->json($data);
     }
 
     /**
@@ -67,9 +101,21 @@ class DistrubTypeController extends Controller
      * @param  \App\Models\DistrubType  $distrubType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DistrubType $distrubType)
+    public function update(Request $request)
     {
-        //
+        $this->create($request);
+        if($this->status == 200){
+            $data = [
+                'status'=>$this->status,
+                'data'=>'Данные обновлены'
+            ];
+        }else{
+            $data = [
+                'status'=>$this->status,
+                'data'=>'Ошибка обновления данных'
+            ];
+        }
+        return response()->json($data);
     }
 
     /**
@@ -78,8 +124,33 @@ class DistrubTypeController extends Controller
      * @param  \App\Models\DistrubType  $distrubType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DistrubType $distrubType)
+    public function delete(Request $request)
     {
-        //
+        $id = $request->id;
+        try {
+            $distrub_type = DistrubType::find($id);
+            if(!empty($distrub_type)){
+                $distrub_type->delete();
+                $this->status = 200;
+                $data = [
+                    'status'=>$this->status,
+                    'data'=>'Запись удалена успешно'
+                ];
+            }else{
+                $this->status = 500;
+                $data = [
+                    'status'=>$this->status,
+                    'data'=>'Ошибка удаления записи'
+                ];
+            }
+
+        } catch (\Exception $th) {
+            $this->status = 500;
+            $data = [
+                'status'=>$this->status,
+                'data'=>'Ошибка при добавлении данных: '.$th->getMessage()
+            ];
+        }
+        return response()->json($data);
     }
 }

@@ -8,12 +8,14 @@
     <div class="card border-primary">
         <div class="card-header bg-primary text-white "> {{ __('Главная') }}</div>
         <div class="card-body">
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
+            <div class="row">
+                <div class="col-6">
+                    <linechart-component></linechart-component>
                 </div>
-            @endif
-            <linechart-component></linechart-component>
+                <div class="col-6">
+                    <barchart-component></barchart-component>
+                </div>
+            </div>
         </div>
     </div>
 </div>

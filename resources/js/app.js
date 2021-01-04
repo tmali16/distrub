@@ -7,9 +7,13 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+
+
 import { BootstrapVue } from 'bootstrap-vue'
 import Select2 from 'v-select2-component';
-import Vuelidate from 'vuelidate'
+import Vuelidate from 'vuelidate';
+
 Vue.use(Vuelidate)
 Vue.use(BootstrapVue)
 /**
@@ -31,6 +35,7 @@ Vue.component('employe-component', require('./components/Employe.vue').default);
 Vue.component('distrub-component', require('./components/Distrub.vue').default);
 Vue.component('directory-component', require('./components/directory.vue').default);
 Vue.component('linechart-component', require('./components/LineChart.vue').default);
+Vue.component('barchart-component', require('./components/BarChart.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

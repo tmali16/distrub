@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Laravel\Ui\AuthRouteMethods\AuthRouteMethods;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,9 +31,7 @@ Route::get('/empleyee', 'OperatorsController@index')->name('empleyee');
 
 Route::get('/directory', 'ServicesController@index')->name('directory');
 
-
-
-Route::group(['prefix' => 'api'], function () {
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/rank/list', "OperatorsController@getRanks");
     Route::get('/prison/list', "PrisionsController@list");
 
@@ -47,8 +45,18 @@ Route::group(['prefix' => 'api'], function () {
     Route::get('/distrub/detail/{id}', "DistrubController@show");
     Route::post('/distrub/update', "DistrubController@edit");
     Route::post('/distrub/delete', "DistrubController@delete");
-    
-    
+
+
+    Route::get('/directory/list', "ServicesController@response");
+
+    Route::post('/directory/service/store', "ServicesController@create");
+    Route::post('/directory/service/update', "ServicesController@update");
+    Route::post('/directory/service/delete', "ServicesController@delete");
+
+    Route::post('/directory/distrubType/store', "DistrubTypeController@create");
+    Route::post('/directory/distrubType/update', "DistrubTypeController@update");
+    Route::post('/directory/distrubType/delete', "DistrubTypeController@delete");
 
     Route::post('/distrub/chart', "DistrubController@chart");
+    Route::post('/distrub/chart/prison', "DistrubController@asPrison");
 });

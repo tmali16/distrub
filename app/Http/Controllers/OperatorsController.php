@@ -12,6 +12,10 @@ class OperatorsController extends Controller
 {
     //
     private $page = "Сотрудники";
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }  
     public function index()
     {
         $page = "Сотрудники";

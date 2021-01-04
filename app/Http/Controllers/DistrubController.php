@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Distrub;
 use App\Models\Media;
+use App\Models\Prisions;
 use Illuminate\Support\Str;
 use Exception;
-use Carbon\Carbon;
+
 
 
 class DistrubController extends Controller
@@ -16,7 +17,10 @@ class DistrubController extends Controller
     //
     private $page = "Главная";
     private $ActStatus = 200;
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $page = "Нарушения";
@@ -79,6 +83,40 @@ class DistrubController extends Controller
             ],
         ],
         ];
+        return response()->json($data, 200);
+    }
+
+    public function asPrison(Request $request)
+    {
+        // $start = date("Y-m-d",strtotime($request->start));
+        // $end =date("Y-m-d",strtotime($request->end));
+        $label = [];
+        //$distrub = Distrub::whereBetween('dates', [$start, $end])->orderBy('dates')->get();
+        $dat = [];
+        $color = [];
+        $prisions = Prisions::all();
+        $datasets= [];
+
+        foreach ($prisions as $key => $p) {
+            $label[] = $p->name;
+            $dat[] = Distrub::where('prision_id', $p->id)->count();
+            $color = 'rgba('.random_int(0, 255).', '.random_int(0, 255).', '.random_int(0, 255).', 1)';
+        }
+
+        $data = [
+            'labels'=>$label,
+            'datasets'=>[
+                [
+                    'label'=>'Нарушение',
+                    'backgroundColor'=>$color,
+                    'borderColor'=>'#269dff',
+                    'data'=>$dat,
+                    'borderWidth'=> 2,
+                    'pointRadius'=>2
+                ]
+            ]
+        ];
+
         return response()->json($data, 200);
     }
     public function store(Request $request)
