@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-lg">
     <div class="container">
-        <a class="navbar-brand text-danger" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+        <a class="text-red-500 hover:no-underline hover:text-red-600 py-3 text-3xl font-bold" href="{{ url('/') }}">
+            <img src="{{asset('images/icon.png')}}" alt="icon" class="inline-block w-10 px-2">{{ config('app.name', 'DisFix') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>

@@ -332,7 +332,11 @@
                 let res = confirm("Вы действительно хотите удалить данную запись?")
                 if(res){
                     let tip = this.type.split(".");
-                    this.newData[tip[0]] = this.proData[tip[0]][index]
+                    let ind = index
+                    if (path == 'prison') {
+                        ind = this.proData[path].findIndex(k=>k.id == index)
+                    }
+                    this.newData[tip[0]] = this.proData[tip[0]][ind]
                     this.save()
                 }
             },
