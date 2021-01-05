@@ -59,6 +59,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::post('/directory/distrubType/create', "DistrubTypeController@create");
     Route::post('/directory/distrubType/update', "DistrubTypeController@update");
     Route::post('/directory/distrubType/delete', "DistrubTypeController@delete");
+    
+    Route::get('/directory/prison/all', "PrisionsController@all");
+    Route::post('/directory/prison/create', "PrisionsController@create");
+    Route::post('/directory/prison/update', "PrisionsController@update");
+    Route::post('/directory/prison/delete', "PrisionsController@delete");
 
     Route::post('/distrub/chart', "DistrubController@chart");
     Route::post('/distrub/chart/prison', "DistrubController@asPrison");
