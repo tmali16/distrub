@@ -28,4 +28,22 @@ class PrisionsController extends Controller
         ];
         return response()->json($data, 200);
     }
+
+    public function all()
+    {
+        
+    }
+
+    public function get(Request $request)
+    {
+        $limit = $request->limit;
+        if($limit == null){
+            $prisison =Prisions::all();
+        }else{
+            $limit = $request->limit ?? 10;
+            $prisison =Prisions::paginate($limit);   
+        }
+        
+        return response()->json($prisison);
+    }
 }

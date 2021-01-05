@@ -11,7 +11,7 @@ window.Vue = require('vue');
 
 
 import { BootstrapVue } from 'bootstrap-vue'
-import Select2 from 'v-select2-component';
+
 import Vuelidate from 'vuelidate';
 
 Vue.use(Vuelidate)
@@ -28,7 +28,7 @@ Vue.use(BootstrapVue)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('Select2', Select2);
+
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 Vue.component('employe-component', require('./components/Employe.vue').default);

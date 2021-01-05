@@ -33,8 +33,11 @@ Route::get('/directory', 'ServicesController@index')->name('directory');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/rank/list', "OperatorsController@getRanks");
-    Route::get('/prison/list', "PrisionsController@list");
 
+    Route::get('/prison/list', "PrisionsController@list");
+    Route::get('/prison/get', "PrisionsController@get");
+
+    Route::get('/employe/all', "OperatorsController@all");
     Route::get('/employe/list', "OperatorsController@list");
     Route::post('/employe/add', "OperatorsController@store");
     Route::post('/employe/update', "OperatorsController@edit");
@@ -49,11 +52,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
     Route::get('/directory/list', "ServicesController@response");
 
-    Route::post('/directory/service/store', "ServicesController@create");
+    Route::post('/directory/service/create', "ServicesController@create");
     Route::post('/directory/service/update', "ServicesController@update");
     Route::post('/directory/service/delete', "ServicesController@delete");
 
-    Route::post('/directory/distrubType/store', "DistrubTypeController@create");
+    Route::post('/directory/distrubType/create', "DistrubTypeController@create");
     Route::post('/directory/distrubType/update', "DistrubTypeController@update");
     Route::post('/directory/distrubType/delete', "DistrubTypeController@delete");
 

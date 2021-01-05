@@ -207,6 +207,7 @@ export default {
         this.getList()
         this.getDirectory();
         this.getEmploye()
+        this.getPrison();
     },
     validations:{
         distr: {
@@ -227,22 +228,32 @@ export default {
         getList(page = 1){
             axios.post("/api/distrub/list", {"limit":this.limit}).then(d=>{
                 this.dataRes = d.data.data
+                
             }).catch(e=>{
                 console.log(e)
             })
         },
         getDirectory(){
             axios.get("/api/prison/list").then(d=>{
-                this.Directory.prision = d.data.prision;
+                //this.Directory.prision = d.data.prision;
                 this.Directory.service = d.data.service;
                 this.Directory.distrub_type = d.data.distrubType;
+                
+            }).catch(e=>{
+                console.log(e)
+            })
+        },
+        getPrison(){
+            axios.get("/api/prison/get").then(d=>{
+                this.Directory.prision = d.data;                
             }).catch(e=>{
                 console.log(e)
             })
         },
         getEmploye(page=1){
-            axios.get("/api/employe/list?page="+page).then(d=>{
+            axios.get("/api/employe/all").then(d=>{
                 this.employe = d.data
+                console.log(d.data)
             }).catch(e=>{
                 console.log(e)
             })

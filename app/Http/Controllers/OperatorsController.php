@@ -21,7 +21,12 @@ class OperatorsController extends Controller
         $page = "Сотрудники";
         return view("employe.index", ["page"=>$page]);
     }
-
+    public function all()
+    {
+        $data = Operators::with('rank')->get();
+        
+        return response()->json($data);
+    }
     public function list()
     {
         $data = Operators::with('rank')->paginate(10);

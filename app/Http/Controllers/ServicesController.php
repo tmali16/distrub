@@ -42,7 +42,7 @@ class ServicesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {
+    {        
         try {
             if($request->id != null){
                 $services = Services::find($request->id);
