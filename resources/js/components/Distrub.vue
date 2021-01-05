@@ -1,17 +1,23 @@
 <template>
 <div class="">
     <div class="alert alert-success " id="alert" role="alert"></div>
-    <nav class="col row bg-secondary2 pt-2 pb-2">
-        <div class="col-1 pl-0">
-            <button @click="addNewDistrub" class="btn btn-sm btn-outline-success pr-5 pl-5"><i class="fa fa-plus-square"></i></button>
-        </div>
-        <div class="col-1 ml-auto pr-0">
-            <b-form-select v-model="limit" size="sm" :options="limitList" class="" @change="getList"></b-form-select>
+    <nav>
+        <div class="overflow-hidden sm:rounded-md">
+            <div class="px-0 py-3 bg-white sm:p-6">
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="col-span-6 sm:col-span-3 inline-block">
+                        <button @click="addNewDistrub" class="px-6 py-2 bg-blue-500 inline-block   border-white hover:bg-blue-600 text-white"><i class="fa fa-plus-square"></i></button>
+                        <b-form-select v-model="limit" size="sm" :options="limitList" class="px-6 py-2 min-w-10 w-20 m-0 inline-block border border-gray-700" @change="getList"></b-form-select>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <!-- ---------------- TABLE ------------------- -->
-    <b-table :items="dataRes.data" :fields="fields"
+    <b-table :items="dataRes.data" :fields="fields" thead-tr-class="bg-blue-400 text-white"
+                tbody-tr-class="bg-white border-bottom border-gray-600"
+                details-td-class="py-2 px-3"
       @row-selected="onRowSelected" select-mode="single">
             <template #cell(index)="data">
                 {{ data.index + 1 }}
@@ -30,9 +36,9 @@
             </template>
             <template #cell(action)="data">
 
-                <button type="button" @click="viewDistrub(data.index)" class="btn btn-sm btn-outline-success"><i class="fa fa-eye"></i></button>
-                <button type="button" @click="editDistrub(data.index)" class="btn btn-sm btn-outline-primary"><i class="fa fa-user-edit"></i></button>
-                <button type="button" @click="deleteDistrub(data.index)" class="btn btn-sm  btn-outline-danger"><i class="fa fa-user-times"></i></button>
+                <button type="button" @click="viewDistrub(data.index)" class="px-5 py-2 text-white bg-blue-500 hover:bg-blue-700"><i class="fa fa-eye"></i></button>
+                <button type="button" @click="editDistrub(data.index)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-edit"></i></button>
+                <button type="button" @click="deleteDistrub(data.index)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-times"></i></button>
 
             </template>
     </b-table>
@@ -228,7 +234,7 @@ export default {
         getList(page = 1){
             axios.post("/api/distrub/list", {"limit":this.limit}).then(d=>{
                 this.dataRes = d.data.data
-                
+
             }).catch(e=>{
                 console.log(e)
             })
@@ -238,12 +244,12 @@ export default {
                 this.Directory.prision = d.data.prision;
                 this.Directory.service = d.data.service;
                 this.Directory.distrub_type = d.data.distrubType;
-                
+
             }).catch(e=>{
                 console.log(e)
             })
         },
-        
+
         getEmploye(page=1){
             axios.get("/api/employe/all").then(d=>{
                 this.employe = d.data

@@ -6,71 +6,128 @@
     <b-card no-body >
       <b-tabs v-model="tabIndex" card class="h-100">
          <b-tab title="Службы" :title-link-class="linkClass(0)">
-            <button class="material-button mb-3" @click="create('service')"><i class="fa fa-edit"></i></button>
-            <div class="jumbotron p-2">
-                <b-table :items="proData['service']" :fields="ServicesHeader" >
-                        <template #cell(index)="data">
-                            {{ data.index + 1 }}
-                        </template>
-                        <template #cell(action)="data">
-                            <button type="button" @click="edit('service',data.index)" class="btn btn-sm btn-outline-primary"><i class="fa fa-user-edit"></i></button>
-                            <button type="button" @click="del('service',data.index)" class="btn btn-sm  btn-outline-danger"><i class="fa fa-user-times"></i></button>
-                        </template>
-                </b-table>
+            <div class="overflow-hidden sm:rounded-md">
+                <div class="px-0 py-3 bg-white sm:p-6">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="col-span-6 sm:col-span-3">
+                            <button class="px-6 py-2  bg-blue-500 inline-block  border border-white hover:bg-blue-600 text-white" @click="create('service')"><i class="fa fa-edit"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <b-table :items="proData['service']" table-class="min-w-full divide-y divide-black-900" thead-tr-class="bg-blue-400 text-white" :fields="ServicesHeader" >
+                                <template #cell(index)="data">
+                                    {{ data.index + 1 }}
+                                </template>
+                                <template #cell(action)="data">
+                                    <button type="button" @click="edit('service',data.index)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-edit"></i></button>
+                                    <button type="button" @click="del('service',data.index)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-trash-alt"></i></button>
+                                </template>
+                        </b-table>
+                    </div>
+                </div>
             </div>
         </b-tab>
         <b-tab title="Типы нарушений" :title-link-class="linkClass(1)">
-            <button class="material-button mb-3" @click="create('distrubType')"><i class="fa fa-edit"></i></button>
-            <div class="jumbotron p-2 ">
-                <b-table :items="proData['distrubType']" :fields="DistrubTypeHeader" >
-                        <template #cell(index)="data">
-                            {{ data.index + 1 }}
-                        </template>
-                        <template #cell(action)="data">
-                            <button type="button" @click="edit('distrubType',data.index)" class="btn btn-sm btn-outline-primary"><i class="fa fa-user-edit"></i></button>
-                            <button type="button" @click="del('distrubType',data.index)" class="btn btn-sm  btn-outline-danger"><i class="fa fa-user-times"></i></button>
-                        </template>
-                </b-table>
-            </div>
-        </b-tab>
-        <b-tab title="Учреждения" :title-link-class="linkClass(2)">
-            <div class="shadow overflow-hidden sm:rounded-md">
-                <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="overflow-hidden sm:rounded-md">
+                <div class="px-0 py-3 bg-white sm:p-6">
                     <div class="grid grid-cols-2 gap-2">
                         <div class="col-span-6 sm:col-span-3">
-                            <label for="first_name" class="block text-sm font-medium inline-block text-gray-700">First name</label>
-                            <select name="first_name" id="first_name" autocomplete="off" class="px-3 py-2 inline-block focus:ring-indigo-500 focus:border-indigo-500 shadow-sm sm:text-sm border-4 border-gray-300">
+                            <button class="px-6 py-2 bg-blue-500 inline-block  border border-white hover:bg-blue-600 text-white" @click="create('distrubType')"><i class="fa fa-edit"></i></button>
+                            <select name="first_name" v-if="this.proData['distrubType'].length > 10" v-model="pageLimit" id="first_name" autocomplete="off" class="px-4 py-2 inline-block shadow-sm sm:text-sm border border-gray-900">
                                 <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="25">25</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col">                
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">                    
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden border-b border-gray-200">                            
+                        <b-table :items="DistrubPrison" :fields="DistrubTypeHeader" thead-tr-class="bg-blue-400 text-white">
+                                <template #cell(index)="data">
+                                    {{ data.index + 1 }}
+                                </template>
+                                <template #cell(action)="data">
+                                    <button type="button" @click="edit('distrubType',data.index)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-edit"></i></button>
+                                    <button type="button" @click="del('distrubType',data.index)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-trash"></i></button>
+                                </template>
+                        </b-table>
+                    </div>
+                </div>
+            </div>
+            <nav class="relative z-0 mt-4 inline-flex shadow-sm -space-x-px" aria-label="Pagination" v-if="this.proData['distrubType'].length > 10">
+                <button @click="prevPage" :disabled="pageNumber === 0" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-blue-500">
+                    <span class="sr-only">Previous</span>
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">{{pageNumber+1}}</span>
+                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">{{DistrubPageCount}}</span>
+                <button @click="nextPage" :disabled="pageNumber >= DistrubPageCount -1" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-blue-500">
+                    <span class="sr-only">Previous</span>
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </nav>
+        </b-tab>
+        <b-tab title="Учреждения" :title-link-class="linkClass(2)">
+            <div class="overflow-hidden sm:rounded-md">
+                <div class="px-0 py-3 bg-white sm:p-6">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="col-span-6 sm:col-span-3">
+                            <button class="px-6 py-2 bg-blue-500 inline-block  border border-white hover:bg-blue-600 text-white" @click="create('prison')"><i class="fa fa-edit"></i></button>
+                            <select name="first_name" v-if="this.proData['prison'].length > 10" v-model="pageLimit" id="first_name" autocomplete="off" class="px-4 py-2 inline-block shadow-sm sm:text-sm border border-gray-900">
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="25">25</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="">
                             <table class="min-w-full divide-y divide-black-900 ">
-                                <thead class="bg-gray-50">
+                                <thead class="bg-gray-50 ">
                                     <tr class="bg-blue-400 text-white">
                                         <th scope="col" class="px-6 py-3 text-left font-medium text-white-500 uppercase tracking-wider">№</th>
-                                        <th scope="col" class="px-6 py-3 text-left  font-medium text-white-500 uppercase tracking-wider">Учреждение</th>                                        
+                                        <th scope="col" class="px-6 py-3 text-left  font-medium text-white-500 uppercase tracking-wider">Учреждение</th>
                                         <th scope="col" class="px-6 py-3">Действие</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-gray-200 overflow-y-hidden overflow-y-scroll">
-                                    <tr v-for="(item, index) in proData['prison']" :key="index" class="bg-white border-4 border-gray-300">
+                                <tbody class="bg-gray-200 flex-grow overflow-y-auto">
+                                    <tr v-for="(item, index) in pageinatedPrison" :key="index" class="bg-white border-bottom border-gray-600">
                                         <td class="px-6 py-3">{{index+1}}</td>
                                         <td class="px-6 py-3">
                                             <div class="text-sm text-gray-900">{{item.name}}</div>
                                         </td>
                                         <td class="px-6 py-3">
-                                            <button type="button" @click="edit('prison',index)" class="px-4 py-1 text-white bg-blue-600 shadow-md hover:shadow-md"><i class="fa fa-user-edit"></i></button>
-                                            <button type="button" @click="del('prison',index)" class="px-4 py-1 text-white bg-red-600 shadow-md hover:shadow-md"><i class="fa fa-user-times"></i></button>
+                                            <button type="button" @click="edit('prison',item.id)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-edit"></i></button>
+                                            <button type="button" @click="del('prison',item.id)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-times"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <nav class="relative z-0 mt-4 inline-flex shadow-sm -space-x-px" aria-label="Pagination" v-if="this.proData['prison'].length > 9">
+                                <button @click="prevPage" :disabled="pageNumber === 0" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-blue-500">
+                                    <span class="sr-only">Previous</span>
+                                    <!-- Heroicon name: chevron-left -->
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">{{pageNumber+1}}</span>
+                                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">{{PrisonPageCount}}</span>
+                                <button @click="nextPage" :disabled="pageNumber >= PrisonPageCount -1" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-blue-500">
+                                    <span class="sr-only">Previous</span>
+                                    <!-- Heroicon name: chevron-left -->
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -82,7 +139,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6 class="modal-title">Modal title</h6>
+                    <h6 class="modal-title">{{type.split('.')[1] == 'update' ? 'Обновление даннах' : 'Новая запись'}}</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -144,14 +201,9 @@
                 DistrubTypeHeader:[{key: "index",label: "№"},{key: "name",label: "Название"},{key: "action",label: "Действие"},],
                 type:'',
                 url: "",
-                sendData: {},                
-                prisons: {
-                        data:[]
-                    },
-                retData:{
-                    services:[],
-                    distrubType:[],                    
-                },
+                sendData: {},
+                pageLimit: 10,
+                pageNumber: 0,
                 newData:{
                     'service': {
                         mod: true,
@@ -180,7 +232,26 @@
             }
         },
         computed:{
-
+            PrisonPageCount(){
+                let l = this.proData['prison'].length,
+                s= this.pageLimit
+                return Math.ceil(l/s);
+            },
+            pageinatedPrison(){
+                const start = this.pageNumber * this.pageLimit,
+                end = start + this.pageLimit;
+                return this.proData['prison'].slice(start, end)
+            },
+            DistrubPageCount(){
+                let l = this.proData['distrubType'].length,
+                s= this.pageLimit
+                return Math.ceil(l/s);
+            },
+            DistrubPrison(){
+                const start = this.pageNumber * this.pageLimit,
+                end = start + this.pageLimit;
+                return this.proData['distrubType'].slice(start, end)
+            }
         },
         mounted() {
             this.list();
@@ -189,17 +260,23 @@
         methods: {
             linkClass(idx){
                 if (this.tabIndex === idx) {
-                return ['bg-primary', 'text-light']
+                return ['bg-primary', 'text-white']
                 } else {
                 return ['bg-light', 'text-info']
-                }                
+                }
+            },
+            nextPage(){
+                this.pageNumber++;
+            },
+            prevPage(){
+                this.pageNumber--;
             },
             list(i){
                 let url = "/api/directory/list";
                 axios.get(url).then(d=>{
-                    this.retData = d.data.data                    
+                    this.retData = d.data.data
                     this.proData['service'] = d.data.data.services;
-                    this.proData['distrubType'] = d.data.data.distrubType;                    
+                    this.proData['distrubType'] = d.data.data.distrubType;
                 }).catch(e=>{
                     this.showAlert.mod = true;
                     this.showAlert.text = e.message;
@@ -210,7 +287,7 @@
             PrisionList(){
                 let url = "/api/directory/prison/all";
                 axios.get(url).then(d=>{
-                    this.proData['prison'] = d.data                    
+                    this.proData['prison'] = d.data
                 }).catch(e=>{
                     this.showAlert.mod = true;
                     this.showAlert.text = e.message;
@@ -219,8 +296,8 @@
                 setTimeout(() => {this.showAlert.mod = false;}, 5000);
             },
             save(){
-                let tip = this.type.split('.')                
-                this.sendData = this.newData[tip[0]]                
+                let tip = this.type.split('.')
+                this.sendData = this.newData[tip[0]]
                 axios.post(this.url, this.sendData).then(d=>{
                     if(d.data.status == 200){
                         this.showAlert.mod = true;
@@ -248,7 +325,7 @@
                 let url = "/api/directory/"+path+"/update";
                 this.type = path+'.update.'+index;
                 this.ModalOpen();
-            },            
+            },
             del(path, index){
                 this.url = "/api/directory/"+path+"/delete";
                 this.type = path+'.delete.'+index;
@@ -288,14 +365,15 @@
                         this.newData['distrubType'].mod = false;
                         this.newData['prison'].mod = true;
                         if (tip[1] == 'update') {
-                            this.newData[tip[0]].name = this.proData[tip[0]][tip[2]].name
-                            this.newData[tip[0]].id = this.proData[tip[0]][tip[2]].id
+                            let ind = this.proData[tip[0]].findIndex(k=>k.id == tip[2])
+                            this.newData[tip[0]].name = this.proData[tip[0]][ind].name
+                            this.newData[tip[0]].id = this.proData[tip[0]][ind].id
                         }
                         break;
                 }
             },
             closeModal(){
-                $('#MainModal').modal('hide')                
+                $('#MainModal').modal('hide')
                 this.newData['distrubType'].mod = false;
                 this.newData['distrubType'].name = '';
                 this.newData['distrubType'].id = null;

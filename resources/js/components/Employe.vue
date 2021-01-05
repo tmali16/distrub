@@ -3,21 +3,35 @@
     <div class="alert alert-success hidden" id="alert" role="alert">
 
     </div>
-    <button @click="addNewEmployee" class="btn btn-sm btn-outline-success mb-3 pr-5 pl-5"><i class="fa fa-user-plus"></i></button>
+    <div class="overflow-hidden sm:rounded-md">
+        <div class="px-0 py-3 bg-white sm:p-6">
+            <div class="grid grid-cols-2 gap-2">
+                <div class="col-span-6 sm:col-span-3">
+                    <button class="px-6 py-2 bg-blue-500 inline-block  border border-white hover:bg-blue-600 text-white" @click="addNewEmployee"><i class="fa fa-user-plus"></i></button>
 
-    <b-table :items="data.data" :fields="fields"
-      @row-selected="onRowSelected" select-mode="single">
-            <template #cell(index)="data">
-                {{ data.index + 1 }}
-            </template>
-            <template #cell(rank)="data">
-                {{ data.item.rank.name }}
-            </template>
-            <template #cell(action)="data">
-                <button type="button" @click="editOperator(data.index)" class="btn btn-sm btn-outline-primary rounded-50"><i class="fa fa-user-edit"></i></button>
-                <button type="button" @click="deleteOperator(data.index)" class="btn btn-sm btn-outline-danger"><i class="fa fa-user-times"></i></button>
-            </template>
-    </b-table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <b-table :items="data.data" :fields="fields"
+                @row-selected="onRowSelected" select-mode="single" thead-tr-class="bg-blue-400 text-white">
+                        <template #cell(index)="data">
+                            {{ data.index + 1 }}
+                        </template>
+                        <template #cell(rank)="data">
+                            {{ data.item.rank.name }}
+                        </template>
+                        <template #cell(action)="data">
+                            <button type="button" @click="editOperator(data.index)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-user-edit"></i></button>
+                            <button type="button" @click="deleteOperator(data.index)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-user-times"></i></button>
+                        </template>
+                </b-table>
+            </div>
+        </div>
+    </div>
     <pagination align="center" :data="data" @pagination-change-page="get"></pagination>
 
 
