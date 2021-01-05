@@ -47,7 +47,7 @@
             <label for="distrub-operator_id" class="col-md-3 col-form-label">Оператор</label>
             <div class="col-md-8">
                 <b-form-select v-model.trim="$v.distr.operator.$model" id="distrub-operator_id" size="sm" class="mt-3">
-                    <b-select-option  v-for="(i, e) in employe.data" :key="e" :value="i" v-text="(e+1) + '. ' +i.fname "></b-select-option>
+                    <b-select-option  v-for="(i, e) in employe" :key="e" :value="i" v-text="(e+1) + '. ' +i.fname "></b-select-option>
                 </b-form-select>
                 <div class="error-invalid" v-if="$v.distr.operator.$error && !$v.distr.operator.required" >Выберите оператора обнружившего нарушение</div>
             </div>
@@ -207,7 +207,7 @@ export default {
         this.getList()
         this.getDirectory();
         this.getEmploye()
-        this.getPrison();
+
     },
     validations:{
         distr: {
@@ -235,7 +235,7 @@ export default {
         },
         getDirectory(){
             axios.get("/api/prison/list").then(d=>{
-                //this.Directory.prision = d.data.prision;
+                this.Directory.prision = d.data.prision;
                 this.Directory.service = d.data.service;
                 this.Directory.distrub_type = d.data.distrubType;
                 
@@ -243,13 +243,7 @@ export default {
                 console.log(e)
             })
         },
-        getPrison(){
-            axios.get("/api/prison/get").then(d=>{
-                this.Directory.prision = d.data;                
-            }).catch(e=>{
-                console.log(e)
-            })
-        },
+        
         getEmploye(page=1){
             axios.get("/api/employe/all").then(d=>{
                 this.employe = d.data

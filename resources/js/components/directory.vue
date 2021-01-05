@@ -28,7 +28,7 @@
                         </template>
                         <template #cell(action)="data">
                             <button type="button" @click="edit('distrubType',data.index)" class="btn btn-sm btn-outline-primary"><i class="fa fa-user-edit"></i></button>
-                            <button type="button" @click="delet('distrubType',data.index)" class="btn btn-sm  btn-outline-danger"><i class="fa fa-user-times"></i></button>
+                            <button type="button" @click="del('distrubType',data.index)" class="btn btn-sm  btn-outline-danger"><i class="fa fa-user-times"></i></button>
                         </template>
                 </b-table>
             </div>
@@ -66,7 +66,7 @@
                                         </td>
                                         <td class="px-6 py-3">
                                             <button type="button" @click="edit('prisons',data.index)" class="px-4 py-1 text-white bg-blue-600 shadow-md hover:shadow-md"><i class="fa fa-user-edit"></i></button>
-                                            <button type="button" @click="delet('prisons',data.index)" class="px-4 py-1 text-white bg-red-600 shadow-md hover:shadow-md"><i class="fa fa-user-times"></i></button>
+                                            <button type="button" @click="del('prisons',data.index)" class="px-4 py-1 text-white bg-red-600 shadow-md hover:shadow-md"><i class="fa fa-user-times"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -276,12 +276,12 @@
                 }
             },
             del(path, index){
-                let url = "/api/directory/"+path+"/delete";
+                this.url = "/api/directory/"+path+"/delete";
                 this.type = path+'.delete.'+index;
                 let res = confirm("Вы действительно хотите удалить данную запись?")
                 if(res){
                     let tip = this.type.split(".");
-                    this.newData[tip[0]][index]
+                    this.newData[tip[0]] = this.proData[tip[0]][index]
                     this.save()
                 }
             },

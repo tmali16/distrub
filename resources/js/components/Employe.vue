@@ -123,7 +123,7 @@ export default {
         operator: {
             fname:{required},
             name:{required},
-            lname:{required},
+            lname:{},
             rank:{required},
         }
     },

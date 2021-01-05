@@ -36,14 +36,8 @@ class PrisionsController extends Controller
 
     public function get(Request $request)
     {
-        $limit = $request->limit;
-        if($limit == null){
-            $prisison =Prisions::all();
-        }else{
-            $limit = $request->limit ?? 10;
-            $prisison =Prisions::paginate($limit);   
-        }
-        
+        $limit = $request->limit ?? 10;
+        $prisison =Prisions::paginate($limit);
         return response()->json($prisison);
     }
 }
