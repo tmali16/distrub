@@ -9,6 +9,7 @@ $route = \Route::currentRouteName();
     <a href="{{route("empleyee")}}" class="list-group-item list-group-item-action @if($route == "empleyee") active text-white @endif"><i class="fa fa-angle-right"></i> Сотрудники</a>
     <a href="{{route("directory")}}" class="list-group-item list-group-item-action @if($route == "directory") active text-white @endif"><i class="fa fa-angle-right"></i> Справочник</a>
     @if (auth()->user()->username == 'admin')
-    <a href="{{route("users")}}" class="list-group-item list-group-item-action @if($route == "users" || $route == "register" || $route == "user_edit") active text-white @endif"><i class="fa fa-angle-right"></i> Пользователи</a>
+        <a href="{{route("users")}}" class="list-group-item list-group-item-action @if($route == "users" || $route == "register" || $route == "user_edit") active text-white @endif"><i class="fa fa-angle-right"></i> Пользователи</a>
+        <a href="{{route("role")}}" class="list-group-item list-group-item-action @if($route == "role" || $route == "permission" || $route == "user_edit") active text-white @endif"><i class="fa fa-angle-right"></i> Роли и полномочия</a>
     @endif
 </div>

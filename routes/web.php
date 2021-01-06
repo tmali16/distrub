@@ -17,19 +17,20 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/users', 'HomeController@users')->name('users');
+    Route::get('/users/edit/{id}', 'HomeController@userEdit')->name('user_edit');
+    Route::post('/users/pass/edit/', 'HomeController@userPassEdit')->name('user_pass_edit');
+    Route::post('/users/edit/{id}/store', 'HomeController@userEditStore')->name('user_edit_store');
+    Route::post('/users/delete/', 'HomeController@userDelete')->name('user_delete');
 
-Route::get('/users', 'HomeController@users')->name('users');
-Route::get('/users/edit/{id}', 'HomeController@userEdit')->name('user_edit');
-Route::post('/users/pass/edit/', 'HomeController@userPassEdit')->name('user_pass_edit');
-Route::post('/users/edit/{id}/store', 'HomeController@userEditStore')->name('user_edit_store');
-Route::post('/users/delete/', 'HomeController@userDelete')->name('user_delete');
+    Route::get('/users/distrub', 'DistrubController@index')->name('distrub_index');
+    Route::get('/empleyee', 'OperatorsController@index')->name('empleyee');
+    Route::get('/directory', 'ServicesController@index')->name('directory');
+    
+    Route::get('/roles', 'PermissionController@index')->name('role');
 
-
-Route::get('/users/distrub', 'DistrubController@index')->name('distrub_index');
-
-Route::get('/empleyee', 'OperatorsController@index')->name('empleyee');
-
-Route::get('/directory', 'ServicesController@index')->name('directory');
+});
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::get('/rank/list', "OperatorsController@getRanks");
@@ -67,4 +68,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
     Route::post('/distrub/chart', "DistrubController@chart");
     Route::post('/distrub/chart/prison', "DistrubController@asPrison");
+
+    Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
+        Route::get('/role/list', "PermissionController@list");
+    });
 });
