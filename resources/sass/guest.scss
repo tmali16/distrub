@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//@import "~@glidejs/glide/src/assets/sass/glide.core";
+@import '~swiper/swiper-bundle.css';
+
+#particles-js{
+    canavas{
+        position: absolute;
+
+        z-index: 100;
+    }
+}
+.specBg{
+    background-color:#00081e !important;
+}
+.TextSpecBg{
+    color:#00081e !important
+}

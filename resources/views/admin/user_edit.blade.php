@@ -5,8 +5,8 @@
 @section('content')
 <div class="col-md-10">
     <div class="card">
-        <div class="card-header">{{ __('Новый пользователь') }}</div>                
-        <div class="card-body">                    
+        <div class="card-header">{{ __('Новый пользователь') }}</div>
+        <div class="card-body">
             <form method="POST" action="{{ route('user_edit_store', ['id'=>$user->id]) }}">
                 @csrf
                 <div class="form-group row">
@@ -33,7 +33,22 @@
                         @enderror
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Роль') }}</label>
+                    <div class="col-md-6">
+                        <select name="role" id="role" class="form-control">
+                            <option value="null">---Выберите---</option>
+                            @foreach ($roles as $item)
+                            <option value="{{$item->id}}" @if($user->hasOneRole($item->id)) selected @endif>{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('roles')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Пароль') }}</label>
                     <div class="col-md-6">

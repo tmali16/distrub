@@ -14,6 +14,8 @@ import { BootstrapVue } from 'bootstrap-vue'
 
 import Vuelidate from 'vuelidate';
 
+
+
 Vue.use(Vuelidate)
 Vue.use(BootstrapVue)
 /**
@@ -28,6 +30,7 @@ Vue.use(BootstrapVue)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('v-select', vSelect)
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 
@@ -47,9 +50,7 @@ Vue.component('barchart-component', require('./components/BarChart.vue').default
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require("@fortawesome/fontawesome-free/js/brands.js");
-require("@fortawesome/fontawesome-free/js/solid.js");
-require("@fortawesome/fontawesome-free/js/fontawesome.min.js");
+
 
 
 

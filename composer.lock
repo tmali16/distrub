@@ -887,6 +887,10 @@
                 "permissions",
                 "roles"
             ],
+            "support": {
+                "issues": "https://github.com/jeremykenedy/laravel-roles/issues",
+                "source": "https://github.com/jeremykenedy/laravel-roles/tree/v5.1.0"
+            },
             "funding": [
                 {
                     "url": "https://github.com/jeremykenedy",
@@ -6878,5 +6882,5 @@
         "php": "^7.2.5|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

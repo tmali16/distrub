@@ -8,7 +8,7 @@ class Distrub extends Model
 {
     //
     protected $with = [
-        'media','operator.rank','prision', 'service','distrubType'
+        'media', 'operator.rank', 'prision', 'service', 'distrubType'
     ];
 
     public function media()
@@ -18,7 +18,7 @@ class Distrub extends Model
 
     public function user()
     {
-        return $this->hasOne('App\User', 'id', 'user_id');
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
 
     public function operator()
@@ -39,5 +39,4 @@ class Distrub extends Model
     {
         return $this->hasOne("App\Models\DistrubType", "id", "distrub_type");
     }
-
 }

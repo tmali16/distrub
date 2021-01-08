@@ -15,9 +15,15 @@ use Laravel\Ui\AuthRouteMethods\AuthRouteMethods;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', function(){
+    return view('welcome');
+})->middleware('guest');
+
+Route::get('/test', 'PermissionController@getClass');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/index', 'HomeController@index')->name('home');
+    
     Route::get('/users', 'HomeController@users')->name('users');
     Route::get('/users/edit/{id}', 'HomeController@userEdit')->name('user_edit');
     Route::post('/users/pass/edit/', 'HomeController@userPassEdit')->name('user_pass_edit');
@@ -27,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users/distrub', 'DistrubController@index')->name('distrub_index');
     Route::get('/empleyee', 'OperatorsController@index')->name('empleyee');
     Route::get('/directory', 'ServicesController@index')->name('directory');
-    
+
     Route::get('/roles', 'PermissionController@index')->name('role');
 
 });
@@ -60,7 +66,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::post('/directory/distrubType/create', "DistrubTypeController@create");
     Route::post('/directory/distrubType/update', "DistrubTypeController@update");
     Route::post('/directory/distrubType/delete', "DistrubTypeController@delete");
-    
+
     Route::get('/directory/prison/all', "PrisionsController@all");
     Route::post('/directory/prison/create', "PrisionsController@create");
     Route::post('/directory/prison/update', "PrisionsController@update");
@@ -71,5 +77,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'users', 'middleware' => 'auth'], function () {
         Route::get('/role/list', "PermissionController@list");
+        Route::post('/role/create', "PermissionController@create");
+        Route::post('/role/update', "PermissionController@update");
+        Route::post('/role/delete', "PermissionController@delete");
     });
 });

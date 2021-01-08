@@ -32,6 +32,7 @@
                                             <th scope="col" class="px-6 py-3 text-left font-medium text-white-500 uppercase tracking-wider">Имя пользователя</th>
                                             <th scope="col" class="px-6 py-3 text-left font-medium text-white-500 uppercase tracking-wider">Имя</th>
                                             <th scope="col" class="px-6 py-3 text-left font-medium text-white-500 uppercase tracking-wider">Дата создания</th>
+                                            <th scope="col" class="px-6 py-3 text-left font-medium text-white-500 uppercase tracking-wider">Роли</th>
                                             <th scope="col" class="px-6 py-3 text-left font-medium text-white-500 uppercase tracking-wider">Управление</th>
                                         </tr>
                                     </thead>
@@ -42,6 +43,13 @@
                                                 <td class="px-6 py-3">{{$item->username}}</td>
                                                 <td class="px-6 py-3">{{$item->name}}</td>
                                                 <td class="px-6 py-3">{{$item->created_at}}</td>
+                                                    <td class="px-6 py-3">
+                                                        <ul>
+                                                            @foreach ($item->getRoles() as $role)
+                                                                <li>{{$role->name}}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </td>
                                                 <td class="px-6 py-3">
                                                     <a href="{{route("user_edit", ['id'=>$item->id])}}" class="btn btn-sm btn-outline-success mx-2"><i class="fa fa-pencil-alt"></i> </a>
                                                     <a href="#" class="btn btn-sm btn-outline-info mx-2" id="newUserPassBtn" data-toggle="modal" data-target="#passModal" data-pass="{{$item->id}}"><i class="fa fa-key"></i> </a>
@@ -110,7 +118,6 @@
                     </div>
                     <div class="form-group row">
                         <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Повторите пароль') }}</label>
-
                         <div class="col-md-6">
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                         </div>

@@ -5,8 +5,18 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors:{
-      Cyan: colors.cyan,
-      lightBlue: colors.lightBlue
+        transparent: 'transparent',
+        current: 'currentColor',
+        black: colors.black,
+        white: colors.white,
+        gray: colors.trueGray,
+        indigo: colors.indigo,
+        red: colors.rose,
+        yellow: colors.amber,
+        green: colors.green,
+        blue: colors.blue,
+        cyan: colors.cyan,
+        lightBlue: colors.lightBlue,
     },
     extend: {},
   },

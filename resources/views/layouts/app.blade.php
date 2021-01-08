@@ -10,19 +10,30 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    @auth
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/core.js') }}" defer></script>
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/core.css') }}" rel="stylesheet">
+    @else
+        <script src="{{ asset('js/guest.js') }}" defer></script>
+        <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
+    @endauth
+
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="shortcut icon" href="{{asset('images/icon.png')}}" type="image/x-icon">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('style')
 </head>
 <body>
-    <div id="app">
-        @auth
+    @auth
+        <div id="app">
             @include('layouts.nav')
             <div class="container-fluid">
                 <div class="col-12 my-5" style="height: 50px;">
@@ -68,9 +79,9 @@
                     @yield('content')
                 </div>
             </div>
-        @else
-            @yield('content')
-        @endauth
-    </div>
+        </div>
+    @else
+        @yield('content')
+    @endauth
 </body>
 </html>

@@ -13,7 +13,19 @@ const tailwindcss = require('tailwindcss');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .disableNotifications();
+
+mix.js('resources/js/core.js','public/js')
+    .sass('resources/sass/core.scss', 'public/css')
     .options({
         processCssUrls: false,
         postCss: [ tailwindcss('./tailwind.config.js') ],
-    }).disableNotifications();
+    });
+
+
+mix.js('resources/js/guest.js','public/js')
+    .sass('resources/sass/guest.scss', 'public/css')
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('./tailwind.config.js') ],
+    });

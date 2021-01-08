@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use jeremykenedy\LaravelRoles\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -62,21 +63,24 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'username' => $data['username'],
             'name' => $data['name'],
             'email' => $data['name'],
             'password' => Hash::make($data['password']),
         ]);
+        $user->attachRole($data['role']);
+        return $user;
     }
 
     public function showRegistrationForm()
     {
         $page = "Новый пользователь";
-        return view('auth.register', ['page'=>$page]);
+        $roles = Role::all();
+        return view('auth.register', ['page' => $page, 'roles' => $roles]);
     }
 }
