@@ -1,5 +1,5 @@
 <?php
-
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Rank;
 
@@ -31,9 +31,12 @@ class RankSeeder extends Seeder
             array('id' => '15','name' => 'Генерал-майор','created_at' => NULL,'updated_at' => NULL)
           );
         foreach ($ranks as $key => $i) {
-            Rank::create([
-                'name'=>$i['name']
-            ]);
+            $rank = Rank::where('name', $i['name'])->first();
+            if($rank === null){
+                Rank::create([
+                    'name'=>$i['name']
+                ]);
+            }
         }
 
     }
