@@ -8,6 +8,9 @@ $route = \Route::currentRouteName();
     @permission(['view.distrub'])
         <a href="{{route("distrub_index")}}" class="list-group-item list-group-item-action @if($route == "distrub_index") active text-white @endif"><i class="fa fa-angle-right"></i> Нарушение</a>
     @endpermission
+    @permission(['view.media'])
+        <a href="{{route("video")}}" class="list-group-item list-group-item-action @if($route == "video") active text-white @endif"><i class="fa fa-angle-right"></i> Видео</a>
+    @endpermission
     @permission(['view.empleyee'])
         <a href="{{route("empleyee")}}" class="list-group-item list-group-item-action @if($route == "empleyee") active text-white @endif"><i class="fa fa-angle-right"></i> Сотрудники</a>
     @endpermission

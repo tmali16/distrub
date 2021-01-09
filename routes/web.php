@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/directory', 'ServicesController@index')->name('directory');
 
     Route::get('/roles', 'PermissionController@index')->name('role');
+    
+    Route::get('/video', 'MediaController@index')->name('video');
 
 });
 

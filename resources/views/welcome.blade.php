@@ -26,11 +26,11 @@
                 </div>
             </div>
         </main>
-        <div class="text-white absolute z-10 h-screen" >
+        {{-- <div class="text-white absolute z-10 h-screen" >
             <svg class="absolute h-screen w-40" fill="" viewBox="70 100 0 0" preserveAspectRatio="none" aria-hidden="true">
-                <polygon class="shadow-lg" points="0,0 0,0 70,0 0,100" />
+                <polygon class="shadow-lg" points="70,0 0,0 0,0 0,0" />
             </svg>
-        </div>
+        </div> --}}
     </div>
     <div class="col-start-2 col-span-2 h-screen">
         {{-- <div class="specBg absolute z-10 h-screen" >

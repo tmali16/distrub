@@ -47,16 +47,26 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
-
+        'media' => [
+            'driver' => 'local',
+            'root' =>'\\10.9.2.2\\video_nach\Media\\', //storage_path('app'),
+            'url'=>'media',
+            'links' => 'skip'
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        'media' => [
-            'driver' => 'local',
-            'root' => storage_path('app'),
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => '10.9.2.2',
+            'username'=>'desmi',
+            'password'=>'Trimpl@ns1',
+            'root'=>'media',
+            // 'root'=> storage_path('app/public/Media'),
+            'url'=> '/'
         ],
         's3' => [
             'driver' => 's3',
