@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 ">
             <div class="bg-white">
                 <div class="bg-blue-500 px-4 py-3 font-thin text-white text-xl">
                     <span>Полномочия</span>
@@ -67,8 +67,8 @@
                     <button @click="update('permission', canMethod['permission'].id)" :disabled="!canMethod['permission'].edit" :class="canMethod['permission'].edit ? ' bg-cyan-300  text-white ' : 'bg-gray-700 text-gray-400'" class="mx-4 focus:outline-none rounded-md h-6 w-9 flex items-center justify-center"><i class="fa fa-pencil-alt"></i></button>
                     <button @click="delet('permission', canMethod['permission'].id)" :disabled="!canMethod['permission'].delet" :class="canMethod['permission'].delet ? ' bg-red-500  text-white ' : 'bg-gray-700 text-gray-400'" class="mx-4 focus:outline-none rounded-md h-6 w-9 flex items-center justify-center"><i class="fa fa-trash"></i></button>
                 </div>
-                <div class="py-2">
-                    <div class="accordion">
+                <div class="py-2 overflow-auto" style="height: 630px">
+                    <div class="accordion ">
                         <div class="border-bottom border-white text-white"  v-for="(item, i) in proData['permission']" :key="i">
                             <div class="bg-blue-500">
                                 <button class="w-full px-4 py-3 flex flex-row justify-between hover:bg-blue-600 focus:outline-none" @click="collapse('contentPermission'+item.id, 'permission', item.slug, item.id)">

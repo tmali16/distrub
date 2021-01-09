@@ -90,7 +90,6 @@ class PermissionController extends Controller
             $model->description = $request->description;
             $model->save();
             if($request->model == null && $request->level != null && !empty($request->permissions)){
-                // $model->detuchAllPermissions();
                 foreach ($request->permissions as $key => $value) {
                     $model->attachPermission($value['id']);
                 }

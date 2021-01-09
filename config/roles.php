@@ -109,9 +109,9 @@ return [
     */
 
     'defaultSeeds' => [
-        'PermissionsTableSeeder'        => env('ROLES_SEED_DEFAULT_PERMISSIONS', true),
-        'RolesTableSeeder'              => env('ROLES_SEED_DEFAULT_ROLES', true),
-        'ConnectRelationshipsSeeder'    => env('ROLES_SEED_DEFAULT_RELATIONSHIPS', true),
+        'PermissionsTableSeeder'        => env('ROLES_SEED_DEFAULT_PERMISSIONS', false),
+        'RolesTableSeeder'              => env('ROLES_SEED_DEFAULT_ROLES', false),
+        'ConnectRelationshipsSeeder'    => env('ROLES_SEED_DEFAULT_RELATIONSHIPS', false),
         'UsersTableSeeder'              => env('ROLES_SEED_DEFAULT_USERS', false),
     ],
 
@@ -130,10 +130,10 @@ return [
     'rolesGuiEnabled'               => env('ROLES_GUI_ENABLED', false),
 
     // Enable `auth` middleware
-    'rolesGuiAuthEnabled'           => env('ROLES_GUI_AUTH_ENABLED', true),
+    'rolesGuiAuthEnabled'           => env('ROLES_GUI_AUTH_ENABLED', false),
 
     // Enable Roles GUI middleware
-    'rolesGuiMiddlewareEnabled'     => env('ROLES_GUI_MIDDLEWARE_ENABLED', true),
+    'rolesGuiMiddlewareEnabled'     => env('ROLES_GUI_MIDDLEWARE_ENABLED', false),
 
     // Optional Roles GUI Middleware
     'rolesGuiMiddleware'            => env('ROLES_GUI_MIDDLEWARE', 'role:admin'),

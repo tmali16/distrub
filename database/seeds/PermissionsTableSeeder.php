@@ -17,46 +17,90 @@ class PermissionsTableSeeder extends Seeder
          * Permission Types
          *
          */
+        $perm = [
+            [
+                "ru"=>"плользователей",
+                "model"=>"Users"
+            ],
+            [
+                "ru"=>"сулужбу",
+                "model"=>"Services"
+            ],
+            [
+                "ru"=>"звание",
+                "model"=>"Rank"
+            ],
+            [
+                "ru"=>"учреждение",
+                "model"=>"Prisions"
+            ],
+            [
+                "ru"=>"оператора",
+                "model"=>"Operators"
+            ],
+            [
+                "ru"=>"файл",
+                "model"=>"Media"
+            ],
+            [
+                "ru"=>"типы нарушений",
+                "model"=>"DistrubType"
+            ],
+            [
+                "ru"=>"нарушения",
+                "model"=>"Distrub"
+            ],
+            [
+                "ru"=>"Полномочия",
+                "model"=>"Permissions"
+            ],
+            [
+                "ru"=>"Роли",
+                "model"=>"Role"
+            ]
+        ];
         $Permissionitems = [
             [
-                'name'        => 'Can View Users',
-                'slug'        => 'view.users',
-                'description' => 'Can view users',
-                'model'       => 'Permission',
+                'name'        => 'Может просмотреть ',
+                'slug'        => 'view.',
+                'description' => 'Может просмотреть ',
+                'model'       => '',
             ],
             [
-                'name'        => 'Can Create Users',
-                'slug'        => 'create.users',
-                'description' => 'Can create new users',
-                'model'       => 'Permission',
+                'name'        => 'Может создать ',
+                'slug'        => 'create.',
+                'description' => 'Может создать ',
+                'model'       => '',
             ],
             [
-                'name'        => 'Can Edit Users',
-                'slug'        => 'edit.users',
-                'description' => 'Can edit users',
-                'model'       => 'Permission',
+                'name'        => 'Может изменить ',
+                'slug'        => 'edit.',
+                'description' => 'Может изменить ',
+                'model'       => '',
             ],
             [
-                'name'        => 'Can Delete Users',
-                'slug'        => 'delete.users',
-                'description' => 'Can delete users',
-                'model'       => 'Permission',
-            ],
+                'name'        => 'Может удалить ',
+                'slug'        => 'delete.',
+                'description' => 'Может удалить ',
+                'model'       => '',
+            ]
         ];
 
         /*
          * Add Permission Items
          *
          */
-        foreach ($Permissionitems as $Permissionitem) {
-            $newPermissionitem = config('roles.models.permission')::where('slug', '=', $Permissionitem['slug'])->first();
-            if ($newPermissionitem === null) {
-                $newPermissionitem = config('roles.models.permission')::create([
-                    'name'          => $Permissionitem['name'],
-                    'slug'          => $Permissionitem['slug'],
-                    'description'   => $Permissionitem['description'],
-                    'model'         => $Permissionitem['model'],
-                ]);
+        foreach ($perm as  $value) {
+            foreach ($Permissionitems as $Permissionitem) {
+                $newPermissionitem = config('roles.models.permission')::where('slug', '=', $Permissionitem['slug'].$value['model'])->first();
+                if ($newPermissionitem === null) {
+                    $newPermissionitem = config('roles.models.permission')::create([
+                        'name'          => $Permissionitem['name'].$value['ru'],
+                        'slug'          => $Permissionitem['slug'].$value['model'],
+                        'description'   => $Permissionitem['description'].$value['ru'],
+                        'model'         => $value['model'],
+                    ]);
+                }
             }
         }
     }
