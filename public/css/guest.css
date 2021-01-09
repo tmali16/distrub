@@ -31826,11 +31826,19 @@ video {
 }
 
 .specBg {
-  background-color: #00081e !important;
+  background: url("/public/images/bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 10px 0 #575757;
 }
 
 .TextSpecBg {
-  color: #00081e !important;
+  color: white;
+  background: url("/public/images/bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 @media (min-width: 640px){

@@ -26991,7 +26991,7 @@ try {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\distrub\resources\js\guest.js */"./resources/js/guest.js");
+module.exports = __webpack_require__(/*! E:\projects\domains\distrub\resources\js\guest.js */"./resources/js/guest.js");
 
 
 /***/ })

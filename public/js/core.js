@@ -2361,7 +2361,7 @@ __webpack_require__(/*! @fortawesome/fontawesome-free/js/fontawesome.min.js */ "
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\distrub\resources\js\core.js */"./resources/js/core.js");
+module.exports = __webpack_require__(/*! E:\projects\domains\distrub\resources\js\core.js */"./resources/js/core.js");
 
 
 /***/ })

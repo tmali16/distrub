@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
-<div class="h-screen w-screen z-30 absolute" id="particles-js"></div>
-<div class="specBg items-center  justify-center grid grid-cols-3  h-screen " >
+<div class="h-screen w-screen z-10 absolute" id="particles-js"></div>
+<div class="items-center  justify-center grid grid-cols-3  h-screen " >
     <nav class="absolute z-50 -mr-2 py-4 shadow-lg w-full bg-white" style="z-index: 9999; top-0; position: absolute;">
         <div class="max-w-7xl mx-auto">
             <img class="h-8 w-auto" src="{{asset('images/icon.png')}}" alt="">
         </div>
     </nav>
-    <div class="flex items-center h-screen w-full px-14" >
-        <main  class="py-4 z-50 absolute rounded-xl bg-white " style="width: 750px">
+    <div class="specBg shadow-xl flex items-center h-screen px-14" >
+        <main  class="py-4 z-50 absolute rounded-xl shadow-xl bg-white " style="width: 750px">
             <div class="content-center opacity-100 px-5" >
                     <h1 class="text-4xl tracking-tight font-extrabold w-full text-white sm:text-5xl md:text-6xl">
                         <span class="block xl:inline text-red-700 uppercase">Добро пожаловать</span>
@@ -26,13 +26,18 @@
                 </div>
             </div>
         </main>
-    </div>
-    <div class="col-span-2 h-screen">
-        <div class="absolute z-10 h-screen" >
-            <svg class="absolute h-screen  w-48 TextSpecBg" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <div class="text-white absolute z-10 h-screen" >
+            <svg class="absolute h-screen w-40" fill="" viewBox="70 100 0 0" preserveAspectRatio="none" aria-hidden="true">
                 <polygon class="shadow-lg" points="0,0 0,0 70,0 0,100" />
             </svg>
         </div>
+    </div>
+    <div class="col-start-2 col-span-2 h-screen">
+        {{-- <div class="specBg absolute z-10 h-screen" >
+            <svg class="absolute h-screen w-40" fill="" viewBox="0 0 70 100" preserveAspectRatio="none" aria-hidden="true">
+                <polygon class="shadow-lg" points="0,0 0,0 70,0 0,100" />
+            </svg>
+        </div> --}}
         <!-- Slider main container -->
         <div class="swiper-container h-full w-full">
             <!-- Additional required wrapper -->
