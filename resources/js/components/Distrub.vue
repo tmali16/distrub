@@ -96,7 +96,7 @@
             <div class="col-md-3">
                 <input type="text" v-model.trim="$v.distr.reg_num.$model" id="distrub-reg_num" class="form-control form-control-sm" name="">
                 <div class="error-invalid" v-if="$v.distr.reg_num.$error && !$v.distr.reg_num.required" >Заполните поле</div>
-                <div class="error-invalid" v-if="$v.distr.reg_num.$error && !$v.distr.reg_num.alpha" >Только цивры</div>
+                <!-- <div class="error-invalid" v-if="$v.distr.reg_num.$error && !$v.distr.reg_num.alpha" >Только цивры</div> -->
             </div>
             <div class="col-md-4">
                 <input type="date" v-model.trim="$v.distr.reg_date.$model" class="form-control form-control-sm" name="" id="">
@@ -227,7 +227,7 @@ export default {
             reg_date:{required},
             prision:{required},
             distrub_type:{required},
-            reg_num:{required, alpha: val => /^[0-9]*$/i.test(val),},
+            reg_num:{required},
         }
     },
     methods: {

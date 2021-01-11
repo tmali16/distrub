@@ -31,6 +31,7 @@ class DistrubTypeController extends Controller
      */
     public function create(Request $request)
     {
+        
         try {
             if($request->id != null){
                 $distrub_type = DistrubType::find($request->id);

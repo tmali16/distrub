@@ -145,34 +145,34 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <template v-if="newData['service'].mod">
+                    <template v-if="newDirData['service'].mod">
                         <div class="form-group row">
-                            <label for="distrub-reg_num" class="col-md-4 col-form-label ">Полное название</label>
+                            <label for="service-reg_num" class="col-md-4 col-form-label ">Полное название</label>
                             <div class="col-md-8">
-                                <input type="text" v-model="newData['service'].fullname" id="service-fullname" class="form-control form-control-sm" name="">
+                                <input type="text" v-model="newDirData['service'].fullname" id="service-fullname" class="form-control form-control-sm" name="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="distrub-reg_num" class="col-md-4 col-form-label ">Абривиатура</label>
                             <div class="col-md-8">
-                                <input type="text" v-model="newData['service'].shortname" id="service-shortname" class="form-control form-control-sm" name="">
+                                <input type="text" v-model="newDirData['service'].shortname" id="service-shortname" class="form-control form-control-sm" name="">
                             </div>
                         </div>
 
                     </template>
-                    <template v-if="newData['distrubType'].mod">
+                    <template v-if="newDirData['distrubType'].mod">
                         <div class="form-group row">
                             <label for="distrubType-reg_num" class="col-md-4 col-form-label ">Название</label>
                             <div class="col-md-8">
-                                <input type="text" v-model="newData['distrubType'].name" id="distrubType-name" class="form-control form-control-sm" name="">
-                            </div>
+                                <input type="text" v-model="newDirData['distrubType'].name" id="distrubType-name" class="form-control form-control-sm" name="">                                
+                            </div>                            
                         </div>
                     </template>
-                    <template v-if="newData['prison'].mod">
+                    <template v-if="newDirData['prison'].mod">
                         <div class="form-group row">
-                            <label for="distrubType-reg_num" class="col-md-4 col-form-label ">Название</label>
+                            <label for="prison-reg_num" class="col-md-4 col-form-label ">Название </label>
                             <div class="col-md-8">
-                                <input type="text" v-model="newData['prison'].name" id="distrubType-name" class="form-control form-control-sm" name="">
+                                <input type="text" v-model="newDirData['prison'].name" id="prison-name" class="form-control form-control-sm" name="">
                             </div>
                         </div>
                     </template>
@@ -204,7 +204,7 @@
                 sendData: {},
                 pageLimit: 10,
                 pageNumber: 0,
-                newData:{
+                newDirData:{
                     'service': {
                         mod: true,
                         fullname: '',
@@ -212,7 +212,7 @@
                     },
                     'distrubType':{
                         mod: false,
-                        name: '',
+                        name: 'a',
                     },
                     'prison':{
                         mod: false,
@@ -297,9 +297,11 @@
             },
             save(){
                 let tip = this.type.split('.')
-                this.sendData = this.newData[tip[0]]
+                this.sendData = this.newDirData[tip[0]]                
+                
                 axios.post(this.url, this.sendData).then(d=>{
                     if(d.data.status == 200){
+                        this.showAlert.variant = 'success';
                         this.showAlert.mod = true;
                         this.showAlert.text = d.data.data;
                         this.closeModal()
@@ -320,6 +322,7 @@
                 this.url = "/api/directory/"+path+"/create";
                 this.type = path+'.create.'+index;
                 this.ModalOpen();
+                
             },
             edit(path, index = null){
                 let url = "/api/directory/"+path+"/update";
@@ -336,7 +339,7 @@
                     if (path == 'prison') {
                         ind = this.proData[path].findIndex(k=>k.id == index)
                     }
-                    this.newData[tip[0]] = this.proData[tip[0]][ind]
+                    this.newDirData[tip[0]] = this.proData[tip[0]][ind]
                     this.save()
                 }
             },
@@ -347,48 +350,52 @@
                 modal.modal('show')
                 switch (tip[0]) {
                     case 'service':
-                        this.newData['distrubType'].mod = false;
-                        this.newData['service'].mod = true;
-                        this.newData['prison'].mod = false;
+                        this.newDirData['distrubType'].mod = false;
+                        this.newDirData['service'].mod = true;
+                        this.newDirData['prison'].mod = false;
                         if (tip[1] == 'update') {
-                            this.newData[tip[0]].fullname = this.proData[tip[0]][tip[2]].fullname
-                            this.newData[tip[0]].shortname = this.proData[tip[0]][tip[2]].shortname
-                            this.newData[tip[0]].id = this.proData[tip[0]][tip[2]].id
+                            this.newDirData[tip[0]].fullname = this.proData[tip[0]][tip[2]].fullname
+                            this.newDirData[tip[0]].shortname = this.proData[tip[0]][tip[2]].shortname
+                            this.newDirData[tip[0]].id = this.proData[tip[0]][tip[2]].id
                         }
                         break;
-                    case 'distrubType':
-                        this.newData['service'].mod = false;
-                        this.newData['prison'].mod = false;
-                        this.newData['distrubType'].mod = true;
+                    case 'distrubType':                        
+                        this.newDirData['service'].mod = false;
+                        this.newDirData['prison'].mod = false;
+                        this.newDirData['distrubType'].mod = true;
+                        
                         if (tip[1] == 'update') {
-                            this.newData[tip[0]].name = this.proData[tip[0]][tip[2]].name
-                            this.newData[tip[0]].id = this.proData[tip[0]][tip[2]].id
+                            this.newDirData[tip[0]].name = this.proData[tip[0]][tip[2]].name
+                            this.newDirData[tip[0]].id = this.proData[tip[0]][tip[2]].id
                         }
+                        break;
                     case 'prison':
-                        this.newData['service'].mod = false;
-                        this.newData['distrubType'].mod = false;
-                        this.newData['prison'].mod = true;
+                        this.newDirData['service'].mod = false;
+                        this.newDirData['distrubType'].mod = false;
+                        this.newDirData['prison'].mod = true;
                         if (tip[1] == 'update') {
                             let ind = this.proData[tip[0]].findIndex(k=>k.id == tip[2])
-                            this.newData[tip[0]].name = this.proData[tip[0]][ind].name
-                            this.newData[tip[0]].id = this.proData[tip[0]][ind].id
+                            this.newDirData[tip[0]].name = this.proData[tip[0]][ind].name
+                            this.newDirData[tip[0]].id = this.proData[tip[0]][ind].id
                         }
                         break;
+                    
+
                 }
             },
             closeModal(){
                 $('#MainModal').modal('hide')
-                this.newData['distrubType'].mod = false;
-                this.newData['distrubType'].name = '';
-                this.newData['distrubType'].id = null;
+                this.newDirData['distrubType'].mod = false;
+                this.newDirData['distrubType'].name = '';
+                this.newDirData['distrubType'].id = null;
                 this.type = '';
-                this.newData['service'].mod = false;
-                this.newData['service'].fullname = '';
-                this.newData['service'].shortname = '';
-                this.newData['service'].id = null;
-                this.newData['prison'].mod = false;
-                this.newData['prison'].name = '';
-                this.newData['prison'].id = null;
+                this.newDirData['service'].mod = false;
+                this.newDirData['service'].fullname = '';
+                this.newDirData['service'].shortname = '';
+                this.newDirData['service'].id = null;
+                this.newDirData['prison'].mod = false;
+                this.newDirData['prison'].name = '';
+                this.newDirData['prison'].id = null;
             }
         },
     }
