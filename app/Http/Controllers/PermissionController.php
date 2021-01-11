@@ -43,10 +43,14 @@ class PermissionController extends Controller
     }
     public function getClass()
     {
+        try{
         $name = [];
         $storage = array_diff(scandir(base_path("app\Models\\"), 1), ['..','.']); //('local')->directories();
         foreach ($storage as $key => $value) {
             $name[] = Str::of($value)->replace('_',' ')->split("/\./")[0];
+        }
+        }catch(Exception $ex){
+            info($ex);
         }
         return ($name);
     }
