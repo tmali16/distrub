@@ -137,8 +137,7 @@ class VideoRecorderController extends Controller
     public function Notify(Request $request)
     {
         $te = $request->all();
-        broadcast(new \App\Events\Monitor($te));
-        dd($request->all());
+        broadcast(new \App\Events\Monitor($te));        
         return $te;
     }
 }
