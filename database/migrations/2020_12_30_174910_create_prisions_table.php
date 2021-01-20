@@ -15,7 +15,7 @@ class CreatePrisionsTable extends Migration
     {
         Schema::create('prisions', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
+            $table->string("name");            
             $table->timestamps();
         });
     }
@@ -28,5 +28,8 @@ class CreatePrisionsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('prisions');
+        Schema::table('prisions', function (Blueprint $table) {
+            // $table->dropColumn('')
+        });
     }
 }

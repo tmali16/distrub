@@ -306,8 +306,7 @@ export default {
             this.type = 'update'
             this.distr = this.dataRes.data[i]
             this.distr.datetime = this.distr.dates +"T"+ this.distr.times
-            this.addModalOpen = true;
-            console.log(this.distr)
+            this.addModalOpen = true;            
         },
         deleteDistrub(i){
             let res = confirm("Вы действительно хотите удалить данную запись?")
@@ -371,7 +370,7 @@ export default {
             this.file.push(reader)
         },
         DeleteFile(i){
-            this.files.splice(i,1)
+            this.file.splice(i,1)            
         },
         closeDistubModal(){
             this.addModalOpen = false;

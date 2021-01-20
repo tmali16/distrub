@@ -9,7 +9,7 @@
             <img class="h-8 w-auto" src="{{asset('images/icon.png')}}" alt="">
         </div>
     </nav>
-    <div class="col-span-1 flex justify-center" >
+    <div class="col-span-3 flex justify-center" >
         <div class="border-l-8 z-50 border-cyan-400 bg-white" style="width: 400px;">
             <div class="px-6 py-3">
                 <h1 class=" uppercase text-blue-500  text-3xl">Вход в систему</h1>
@@ -44,22 +44,6 @@
                     </button>
                 </div>
             </form>
-        </div>
-    </div>
-    <div class="col-span-2 h-screen">
-        <div class="absolute z-10 h-screen" >
-            <svg class="absolute h-screen  w-48 TextSpecBg" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                <polygon class="shadow-lg" points="0,0 0,0 100,0 0,100" />
-            </svg>
-        </div>
-        <!-- Slider main container -->
-        <div class="swiper-container h-full w-full">
-            <!-- Additional required wrapper -->
-            <div class="swiper-wrapper h-screen">
-                <!-- Slides -->
-                <div class="swiper-slide h-full" ><img class="bg-contain" src="{{asset('images/slider01.jpg')}}" alt=""></div>
-                <div class="swiper-slide h-full" ><img class=" bg-contain" src="{{asset('images/slider02.jpg')}}" alt=""></div>
-            </div>
         </div>
     </div>
 </div>

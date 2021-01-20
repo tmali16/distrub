@@ -28,6 +28,6 @@ class CreateDistrubFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('distrub_files');
+        Schema::dropIfExists('distrub_media');
     }
 }

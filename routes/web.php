@@ -15,13 +15,22 @@ use Laravel\Ui\AuthRouteMethods\AuthRouteMethods;
 
 Auth::routes();
 
-Route::get('/', function(){
+Route::get('/', function(){    
     return view('welcome');
 })->middleware('guest');
 
+Route::get("/a", "VideoRecorderController@Notify");
+
 Route::get('/test', 'PermissionController@getClass');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::get('/api/prision/dvr/get', 'VideoRecorderController@getPrisions');
+Route::get('/api/prision/dvr/info/{id}', 'VideoRecorderController@parsePrtg');
+
+Route::group(['middleware' => ['auth', 'level:1']], function () {
+    Route::get('/log', 'JournalController@index')->name('Journal');
+});
+
+Route::group(['middleware' => ['auth', 'level:3']], function () {
     Route::get('/index', 'HomeController@index')->name('home');
     
     Route::get('/users', 'HomeController@users')->name('users');
@@ -37,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/roles', 'PermissionController@index')->name('role');
     
     Route::get('/video', 'MediaController@index')->name('video');
-
+    
 });
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
@@ -73,6 +82,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
     Route::post('/directory/prison/create', "PrisionsController@create");
     Route::post('/directory/prison/update', "PrisionsController@update");
     Route::post('/directory/prison/delete', "PrisionsController@delete");
+    
+    Route::get('/directory/dvr/all', "VideoRecorderController@all");
+    Route::post('/directory/dvr/create', "VideoRecorderController@create");
+    Route::post('/directory/dvr/update', "VideoRecorderController@update");
+    Route::post('/directory/dvr/delete', "VideoRecorderController@delete");
 
     Route::post('/distrub/chart', "DistrubController@chart");
     Route::post('/distrub/chart/prison', "DistrubController@asPrison");

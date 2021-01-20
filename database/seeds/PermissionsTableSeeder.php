@@ -57,7 +57,11 @@ class PermissionsTableSeeder extends Seeder
             [
                 "ru"=>"Роли",
                 "model"=>"Role"
-            ]
+            ],
+            [
+                "ru"=>"Журнал",
+                "model"=>"Journal"
+            ],
         ];
         $Permissionitems = [
             [

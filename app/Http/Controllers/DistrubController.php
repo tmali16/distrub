@@ -124,7 +124,7 @@ class DistrubController extends Controller
 
         $validator = Validator::make($request->all(), [
             'descript' => ['required', 'string'],
-            'reg_num' => ['required', 'integer'],
+            'reg_num' => ['required'],
             'reg_date' => ['required'],
         ]);
         if($validator->fails()){

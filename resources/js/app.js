@@ -10,14 +10,38 @@ window.Vue = require('vue');
 
 
 
-import { BootstrapVue } from 'bootstrap-vue'
+import { 
+    ModalPlugin,
+    TablePlugin,
+    FormSelectPlugin,
+    FormTextareaPlugin,
+    LayoutPlugin,
+    CardPlugin,
+    CollapsePlugin,
+    AlertPlugin,
+    TabsPlugin,
+    ToastPlugin
+} from 'bootstrap-vue'
 
 import Vuelidate from 'vuelidate';
-
+require('particles.js');
 
 
 Vue.use(Vuelidate)
-Vue.use(BootstrapVue)
+Vue.use(ModalPlugin )
+Vue.use(FormSelectPlugin)
+Vue.use(FormTextareaPlugin)
+Vue.use(LayoutPlugin)
+Vue.use(CardPlugin)
+Vue.use(AlertPlugin)
+Vue.use(CollapsePlugin)
+Vue.use(TablePlugin )
+Vue.use(TabsPlugin )
+Vue.use(ToastPlugin )
+require("@fortawesome/fontawesome-free/js/brands.js");
+require("@fortawesome/fontawesome-free/js/solid.js");
+require("@fortawesome/fontawesome-free/js/fontawesome.min.js");
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -40,6 +64,8 @@ Vue.component('employe-component', require('./components/Employe.vue').default);
 Vue.component('distrub-component', require('./components/Distrub.vue').default);
 Vue.component('directory-component', require('./components/directory.vue').default);
 
+Vue.component('journal-component', require('./components/Journal.vue').default);
+Vue.component('dvr-component', require('./components/Dvrstatus.vue').default);
 
 Vue.component('linechart-component', require('./components/LineChart.vue').default);
 Vue.component('barchart-component', require('./components/BarChart.vue').default);
@@ -84,4 +110,3 @@ $('#imageView').on('show.bs.modal', function (event) {
     // modal.find('.modal-title').text('New message to ' + recipient)
     modal.find('.modal-body .modalViewImage').attr('src', recipient)
 })
-

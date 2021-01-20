@@ -10,16 +10,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    @auth
+    
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/core.js') }}" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/core.css') }}" rel="stylesheet">
-    @else
-        <script src="{{ asset('js/guest.js') }}" defer></script>
-        <link href="{{ asset('css/guest.css') }}" rel="stylesheet">
-    @endauth
+        
+    
 
 
 
@@ -66,22 +64,26 @@
                     </div>
                 </div>
                 <div class="row mt-5 justify-content-center">
-                    <div class="col-sm-2">
-                        <div class="card  border-none">
-                            <div class="card-header  border-none">
-                                Меню
-                            </div>
-                            <div class="card-body p-2">
-                                @include('layouts.sidebar')
+                    @if(auth()->user()->hasRole('admin|inspector'))
+                        <div class="col-sm-2">
+                            <div class="card  border-none">
+                                <div class="card-header  border-none">
+                                    Меню
+                                </div>
+                                <div class="card-body p-2">
+                                    @include('layouts.sidebar')
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>
         </div>
     @else
-        @yield('content')
+        <div id="app">
+            @yield('content')
+        </div>
     @endauth
 </body>
 </html>

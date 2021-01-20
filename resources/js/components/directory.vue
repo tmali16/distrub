@@ -133,6 +133,73 @@
                 </div>
             </div>
         </b-tab>
+        <b-tab title="Видеорег" :title-link-class="linkClass(3)">
+            <div class="overflow-hidden sm:rounded-md">
+                <div class="px-0 py-3 bg-white sm:p-6">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="col-span-6 sm:col-span-3">
+                            <button class="px-6 py-2 bg-blue-500 inline-block  border border-white hover:bg-blue-600 text-white" @click="create('dvr')"><i class="fa fa-edit"></i></button>
+                            <select name="first_name" v-if="this.proData['dvr'].length > 10" v-model="pageLimit" id="first_name" autocomplete="off" class="px-4 py-2 inline-block shadow-sm sm:text-sm border border-gray-900">
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="25">25</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="">
+                            <table class="min-w-full divide-y divide-black-900 ">
+                                <thead class="bg-gray-50 ">
+                                    <tr class="bg-blue-400 text-white">
+                                        <th scope="col" class="px-6 py-3 text-left font-medium text-white-500 uppercase tracking-wider">№</th>
+                                        <th scope="col" class="px-6 py-3 text-left  font-medium text-white-500 uppercase tracking-wider">Название</th>
+                                        <th scope="col" class="px-6 py-3">Учреждение</th>
+                                        <th scope="col" class="px-6 py-3">ID объекта</th>
+                                        <th scope="col" class="px-6 py-3">Действие</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-gray-200 flex-grow overflow-y-auto">
+                                    <tr v-for="(item, index) in DvrPaginate" :key="index" class="bg-white border-bottom border-gray-600">
+                                        <td class="px-6 py-3">{{index+1}}</td>
+                                        <td class="px-6 py-3">
+                                            <div class="text-sm text-gray-900">{{item.name}}</div>
+                                        </td>
+                                        <td class="px-6 py-3">
+                                            <div class="text-sm text-gray-900">{{item.prision.name}}</div>
+                                        </td>
+                                        <td class="px-6 py-3">
+                                            <div class="text-sm text-gray-900">{{item.obj_id}}</div>
+                                        </td>
+                                        <td class="px-6 py-3">
+                                            <button type="button" @click="edit('dvr',item.id)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-edit"></i></button>
+                                            <button type="button" @click="del('dvr',item.id)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav class="relative z-0 mt-4 inline-flex shadow-sm -space-x-px" aria-label="Pagination" v-if="this.proData['dvr'].length > 9">
+                                <button @click="prevPage" :disabled="pageNumber === 0" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-blue-500">
+                                    <span class="sr-only">Previous</span>
+                                    <!-- Heroicon name: chevron-left -->
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">{{pageNumber+1}}</span>
+                                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">{{PrisonPageCount}}</span>
+                                <button @click="nextPage" :disabled="pageNumber >= PrisonPageCount -1" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-blue-500">
+                                    <span class="sr-only">Previous</span>
+                                    <!-- Heroicon name: chevron-left -->
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </b-tab>
       </b-tabs>
     </b-card>
     <div class="modal animate__animated animate__zoomIn" id="MainModal" tabindex="-1" role="dialog">
@@ -173,6 +240,28 @@
                             <label for="prison-reg_num" class="col-md-4 col-form-label ">Название </label>
                             <div class="col-md-8">
                                 <input type="text" v-model="newDirData['prison'].name" id="prison-name" class="form-control form-control-sm" name="">
+                            </div>
+                        </div>
+                    </template>
+                    <template v-if="newDirData['dvr'].mod">
+                        <div class="form-group row">
+                            <label for="dvr-name" class="col-md-4 col-form-label ">Название </label>
+                            <div class="col-md-8">
+                                <input type="text" v-model="newDirData['dvr'].name" id="dvr-name" class="form-control form-control-sm" name="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dvr-obj_id" class="col-md-4 col-form-label ">ID объекта </label>
+                            <div class="col-md-8">
+                                <input type="number" v-model="newDirData['dvr'].obj_id" id="dvr-obj_id" class="form-control form-control-sm" name="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dvr-prision" class="col-md-4 col-form-label ">Учреждение </label>
+                            <div class="col-md-8">
+                                <select v-model="newDirData['dvr'].prision" id="dvr-obj_id" class="form-control form-control-sm" name="">
+                                    <option v-for="(p, o) in proData['prison']" :key="o" :value="p" v-text="p.name"></option>
+                                </select>                                
                             </div>
                         </div>
                     </template>
@@ -218,6 +307,12 @@
                         mod: false,
                         name: '',
                     },
+                    'dvr':{
+                        mod: false,
+                        name: '',
+                        obj_id: '',
+                        prision: '',
+                    }
                 },
                 showAlert:{
                     mod: false,
@@ -227,7 +322,8 @@
                 proData: {
                     'service':[],
                     'distrubType':[],
-                    'prison':[]
+                    'prison':[],
+                    'dvr':[]
                 }
             }
         },
@@ -251,6 +347,16 @@
                 const start = this.pageNumber * this.pageLimit,
                 end = start + this.pageLimit;
                 return this.proData['distrubType'].slice(start, end)
+            },
+            DvrPageCount(){
+                let l = this.proData['dvr'].length,
+                s= this.pageLimit
+                return Math.ceil(l/s);
+            },
+            DvrPaginate(){
+                const start = this.pageNumber * this.pageLimit,
+                end = start + this.pageLimit;
+                return this.proData['dvr'].slice(start, end)
             }
         },
         mounted() {
@@ -277,6 +383,7 @@
                     this.retData = d.data.data
                     this.proData['service'] = d.data.data.services;
                     this.proData['distrubType'] = d.data.data.distrubType;
+                    this.proData['dvr'] = d.data.data.dvr;
                 }).catch(e=>{
                     this.showAlert.mod = true;
                     this.showAlert.text = e.message;
@@ -336,7 +443,7 @@
                 if(res){
                     let tip = this.type.split(".");
                     let ind = index
-                    if (path == 'prison') {
+                    if (path == 'prison' || path == 'dvr') {
                         ind = this.proData[path].findIndex(k=>k.id == index)
                     }
                     this.newDirData[tip[0]] = this.proData[tip[0]][ind]
@@ -379,6 +486,19 @@
                             this.newDirData[tip[0]].id = this.proData[tip[0]][ind].id
                         }
                         break;
+                    case 'dvr':
+                        this.newDirData['service'].mod = false;
+                        this.newDirData['distrubType'].mod = false;
+                        this.newDirData['prison'].mod = false;
+                        this.newDirData['dvr'].mod = true;
+                        if (tip[1] == 'update') {
+                            let ind = this.proData[tip[0]].findIndex(k=>k.id == tip[2])
+                            this.newDirData[tip[0]].name = this.proData[tip[0]][ind].name
+                            this.newDirData[tip[0]].obj_id = this.proData[tip[0]][ind].obj_id
+                            this.newDirData[tip[0]].prision = this.proData[tip[0]][ind].prision
+                            this.newDirData[tip[0]].id = this.proData[tip[0]][ind].id
+                        }
+                        break;
                     
 
                 }
@@ -396,6 +516,12 @@
                 this.newDirData['prison'].mod = false;
                 this.newDirData['prison'].name = '';
                 this.newDirData['prison'].id = null;
+
+                this.newDirData['dvr'].id = null;
+                this.newDirData['dvr'].name = '';
+                this.newDirData['dvr'].obj_id = '';
+                this.newDirData['dvr'].prision = null;
+                this.newDirData['dvr'].mod = false;
             }
         },
     }

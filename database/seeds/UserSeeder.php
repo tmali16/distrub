@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             $u = User::where('username', $v['username'])->first();
             if($u === null){
                 $n = User::create($v);
-                $n->attachRole($adminRole);
+                $n->attachRole(1);
             }
         }
     }

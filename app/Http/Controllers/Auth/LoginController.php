@@ -42,4 +42,18 @@ class LoginController extends Controller
     {
         return 'username';
     }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated()
+    {
+        if(auth()->user()->hasRole(['operator'])){
+            return redirect()->route("Journal");
+        }
+    }
 }

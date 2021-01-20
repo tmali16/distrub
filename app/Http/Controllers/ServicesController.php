@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Services;
 use App\Models\DistrubType;
+use App\Models\VideoRecorder;
 
 class ServicesController extends Controller
 {
@@ -24,6 +25,7 @@ class ServicesController extends Controller
     {
         $services = Services::all();
         $distrubType = DistrubType::all();
+        $dvr = VideoRecorder::all();
         $this->status = 200;
 
         $data = [
@@ -31,6 +33,7 @@ class ServicesController extends Controller
             'data'=>[
                 'services'=>$services,
                 'distrubType'=>$distrubType,
+                'dvr'=>$dvr
             ]
         ];
 
