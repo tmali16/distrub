@@ -42,8 +42,7 @@ import BarChart from "./BarChart.js";
                     scales: {
                         yAxes: [{
                             ticks: {
-                                min: 0,
-                                max: 5,
+                                min: 0,                                
                                 stepSize: 1
                             }
                     }]
