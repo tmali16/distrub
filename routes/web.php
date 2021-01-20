@@ -19,7 +19,7 @@ Route::get('/', function(){
     return view('welcome');
 });
 
-Route::get("/a", "VideoRecorderController@Notify");
+Route::get("/actual/data", "VideoRecorderController@Notify");
 
 // Route::get('/test', 'PermissionController@getClass');
 
