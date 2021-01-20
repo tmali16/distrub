@@ -138,6 +138,7 @@ class VideoRecorderController extends Controller
     {
         $te = $request->all();
         broadcast(new \App\Events\Monitor($te));
+        dd($request->all());
         return $te;
     }
 }
