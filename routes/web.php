@@ -17,11 +17,11 @@ Auth::routes();
 
 Route::get('/', function(){    
     return view('welcome');
-})->middleware('guest');
+});
 
 Route::get("/a", "VideoRecorderController@Notify");
 
-Route::get('/test', 'PermissionController@getClass');
+// Route::get('/test', 'PermissionController@getClass');
 
 Route::get('/api/prision/dvr/get', 'VideoRecorderController@getPrisions');
 Route::get('/api/prision/dvr/info/{id}', 'VideoRecorderController@parsePrtg');
