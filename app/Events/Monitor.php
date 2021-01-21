@@ -33,7 +33,7 @@ class Monitor implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        echo json_encode($this->data);
+        // echo json_encode($this->data);
         return new Channel('prtg');
     }
 }
