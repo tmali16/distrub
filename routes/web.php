@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/', function(){    
     return view('welcome');
-});
+})->middleware('guest');
 
 Route::get("/actual/data", "VideoRecorderController@Notify");
 
