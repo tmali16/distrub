@@ -32,7 +32,7 @@ export default {
     },
     mounted() {
         this.getDvr();
-        window.Echo.channel("Hello").listen("Monitor", (e)=>{
+        window.Echo.channel("prtg").listen("Monitor", (e)=>{
             this.getDvr();
             console.log(e)
         })
