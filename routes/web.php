@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth', 'level:1']], function () {
     Route::get('/log', 'JournalController@index')->name('Journal');
 });
 
-Route::group(['middleware' => ['auth', 'level:3']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/index', 'HomeController@index')->name('home');
     
     Route::get('/users', 'HomeController@users')->name('users');
@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth', 'level:3']], function () {
     
     Route::get('/video', 'MediaController@index')->name('video');
     
+    Route::get('/distrub/create', "DistrubController@create");
+    Route::post('/distrub/store', "DistrubController@storeNew")->name("distrub_store");
 });
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
@@ -63,7 +65,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function () {
 
     Route::post('/distrub/list', "DistrubController@list");
     Route::post('/distrub/add', "DistrubController@store");
-    Route::get('/distrub/detail/{id}', "DistrubController@show");
+    Route::get('/distrub/detail/{id}', "DistrubController@show")->name("distrub_detail");
     Route::post('/distrub/update', "DistrubController@edit");
     Route::post('/distrub/delete', "DistrubController@delete");
 

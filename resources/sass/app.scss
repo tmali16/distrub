@@ -162,3 +162,10 @@ html, body{
   animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
   animation-duration: 1s; /* don't forget to set a duration! */
 }
+.outline-red{
+  outline: 2px solid red !important;
+  outline-offset: 2px !important;
+}
+.w-deskript{
+  max-width: 8rem;
+}

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Distrub extends Model
 {
     //
+
     protected $with = [
         'media', 'operator.rank', 'prision', 'service', 'distrubType'
     ];

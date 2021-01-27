@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Distrub;
+use App\Models\DistrubType;
+use App\Models\Services;
+use App\Models\Operators;
 use App\Models\Media;
 use App\Models\Prisions;
 use Illuminate\Support\Str;
 use Exception;
 
-
+use function React\Promise\reduce;
 
 class DistrubController extends Controller
 {
@@ -119,9 +122,83 @@ class DistrubController extends Controller
 
         return response()->json($data, 200);
     }
+    
+    public function create()
+    {
+        $this->page = "Новое нарушение";
+        $operator = Operators::all();
+        $distrub = new Distrub();
+        $services = Services::all();
+        $distrub_types = DistrubType::all();
+        $prisions = Prisions::all();
+        return view("distrub.create",[
+            'page'=>$this->page, 
+            'operator'=>$operator, 
+            'distrub'=>$distrub,
+            'services'=>$services,
+            'DistrubTypes'=>$distrub_types,
+            'prisions'=>$prisions,
+        ]);
+    }
+
+    public function storeNew(Request $request)
+    {
+        $data = ['data'=>''];
+        if($request->id != null){
+            $distrub = Distrub::findOrFail($request->id);
+        }else{
+            $distrub = new Distrub();
+        }
+        $validated  = $request->validate([
+            'descript' => 'required',
+            'prision' => 'required',
+            'operator' => 'required',
+            'reg_num' => 'required',
+            'reg_date' => 'required',        
+        ]);
+        if($validated ){
+            
+            $distrub->descript = $request->get("descript");
+            $distrub->dates = date("Y-m-d", strtotime($request->get("date_time")));
+            $distrub->times = date("H:i:s", strtotime($request->get("date_time")));
+            $distrub->whom = $request->get("whom");
+            $distrub->serviced = $request->get("services");
+            $distrub->reg_num = $request->get("reg_num");
+            $distrub->reg_date = $request->get("reg_date");
+            $distrub->dvr_type = $request->get("dvr_type");
+            $distrub->dvr_num = $request->get("dvr_num");
+            $distrub->distrub_type = $request->get("distrub_type");
+            $distrub->prision_id = $request->get("prision");
+            $distrub->operator_id = $request->get("operator");
+            $distrub->user_id = auth()->user()->id;
+            try{
+                $distrub->save();                
+                if($request->file('file')[0] != null){
+                    $files = $request->file('file');                    
+                    foreach ( $files as $value) {                        
+                        $r = $this->saveImgAsFile($value);                        
+                        $media = new Media();
+                        $media->path = $r;                        
+                        $media->save();
+                        $distrub->media()->attach($media->id);
+                    }
+                }
+                $this->ActStatus = 200;
+                $data = [
+                    'status'=>$this->ActStatus,
+                    'data'=>"Нарушение добавлено"
+                ];
+            }catch(\Exception $ex){
+                $this->ActStatus = 500;
+                
+                return redirect()->back()->withErrors($ex->getMessage(), 'Excep');
+            }
+        }
+        return redirect()->back()->with('status', $data['data']);
+        
+    }
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'descript' => ['required', 'string'],
             'reg_num' => ['required'],
@@ -215,9 +292,10 @@ class DistrubController extends Controller
     public function show($id)
     {
         $distrub = Distrub::findOrFail($id);
+        $distrubs = Distrub::all();
         $page = "Просмотр нарушения";
 
-        return view('distrub.view', ['distrub'=>$distrub, 'page'=>$page]);
+        return view('distrub.view', ['distrub'=>$distrub, 'page'=>$page, 'distrubs'=>$distrubs]);
     }
     public function delete(Request $request)
     {
@@ -251,13 +329,21 @@ class DistrubController extends Controller
     }
     private function saveImg($ph)
     {
+        
         $d = explode(',', $ph);
         preg_match("/image\/(\w+)/",$d[0], $res);
-        $mim = $res[1];
-        $path =("storage/img/".Str::slug(Str::uuid()).'.'.$mim);
+        $path ="storage/img/".Str::slug(Str::uuid()).'.'.strtolower($res[0]);
         $f = fopen($path, 'wb');
         fwrite($f, base64_decode($d[1]));
-        fclose($f);
+        fclose($f);        
         return $path;
+    }
+    private function saveImgAsFile($ph)
+    {        
+        $mim = $ph->getClientOriginalExtension();
+        $path ="storage/img/";
+        $fname = Str::slug(Str::uuid()).'.'.strtolower($mim);
+        $ph->move($path, $fname);
+        return $path.$fname;
     }
 }

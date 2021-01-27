@@ -7,7 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+window.select2 = require('select2');
 
 
 import { 
@@ -20,13 +20,15 @@ import {
     CollapsePlugin,
     AlertPlugin,
     TabsPlugin,
-    ToastPlugin
+    ToastPlugin,
+    FormGroupPlugin 
 } from 'bootstrap-vue'
 
 import Vuelidate from 'vuelidate';
 require('particles.js');
 
 
+Vue.use(FormGroupPlugin )
 Vue.use(Vuelidate)
 Vue.use(ModalPlugin )
 Vue.use(FormSelectPlugin)
@@ -78,7 +80,9 @@ Vue.component('barchart-component', require('./components/BarChart.vue').default
 
 
 
-
+// Vue.filter('truncate', function (text, stop, clamp) {
+//     return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
+// })
 
 const app = new Vue({
     el: '#app',
@@ -110,3 +114,10 @@ $('#imageView').on('show.bs.modal', function (event) {
     // modal.find('.modal-title').text('New message to ' + recipient)
     modal.find('.modal-body .modalViewImage').attr('src', recipient)
 })
+// $(document).ready(function() {
+//     $('#operator').select2({
+//         placeholder: 'Выберите оператора',
+//         selectionCssClass: ' bg-gray-400 outline-none',
+//         language: "ru"
+//     });
+// });

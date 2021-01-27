@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const { tail } = require('lodash');
 const tailwindcss = require('tailwindcss');
 /*
  |--------------------------------------------------------------------------
@@ -13,4 +14,6 @@ const tailwindcss = require('tailwindcss');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .disableNotifications();
+    .postCss('resources/css/tailwind.css','public/css',[
+        tailwindcss
+    ]).disableNotifications();

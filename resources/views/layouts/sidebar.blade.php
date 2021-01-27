@@ -11,7 +11,7 @@ $route = \Route::currentRouteName();
     @permission(['view.media'])
         <a href="{{route("video")}}" class="list-group-item list-group-item-action @if($route == "video") active text-white @endif"><i class="fa fa-angle-right"></i> Видео</a>
     @endpermission
-    @permission(['view.empleyee'])
+    @permission(['view.operators'])
         <a href="{{route("empleyee")}}" class="list-group-item list-group-item-action @if($route == "empleyee") active text-white @endif"><i class="fa fa-angle-right"></i> Сотрудники</a>
     @endpermission
     @permission(['view.rank', 'view.prisons', 'view.services', 'view.distrubtype'])

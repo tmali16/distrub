@@ -6,7 +6,8 @@
             <div class="px-0 py-3 bg-white sm:p-6">
                 <div class="grid grid-cols-2 gap-2">
                     <div class="col-span-6 sm:col-span-3 inline-block">
-                        <button @click="addNewDistrub" class="px-6 py-2 bg-blue-500 inline-block   border-white hover:bg-blue-600 text-white"><i class="fa fa-plus-square"></i></button>
+                        <!-- <button @click="addNewDistrub" class="px-6 py-2 bg-blue-500 inline-block   border-white hover:bg-blue-600 text-white"><i class="fa fa-plus-square"></i></button> -->
+                        <a href='/distrub/create' class="px-6 py-2 bg-blue-500 inline-block   border-white hover:bg-blue-600 text-white"><i class="fa fa-plus-square"></i></a>
                         <b-form-select v-model="limit" size="sm" :options="limitList" class="px-6 py-2 min-w-10 w-20 m-0 inline-block border border-gray-700" @change="getList"></b-form-select>
                     </div>
                 </div>
@@ -25,8 +26,14 @@
             <template #cell(dateTime)="data">
                 {{ data.item.dates + " " + data.item.times }}
             </template>
+            <template #cell(descript)="data">
+                {{ data.item.descript | truncate(55, '...') }}
+            </template>
             <template #cell(whom)="data">
                 {{ data.item.whom == "employee" ? 'сотрудника' : 'Осужденного/Подследственного'}}
+            </template>
+            <template #cell(reg_type)="data">
+                {{data.item.dvr_type == "bwc" ? 'Носимый видеорегистратор' : 'Видеонаблюдение'}}
             </template>
             <template #cell(prision)="data">
                 {{data.item.prision.name}}
@@ -202,7 +209,16 @@ export default {
             files: [],
             file: [],
             employe: [],
-            fields:[{key: "index",label: "№"},{key: "dateTime",label: "Дата и время"},{key: "descript",label: "Описание"},{key: "whom",label: "в отношении"},{key: "prision",label: "Учреждение"},{key: "operator",label: "Оператор"},{key: "action",label: "Действие"},]
+            fields:[
+                {key: "index",label: "№"},
+                {key: "dateTime",label: "Дата и время"},
+                {key: "descript",label: "Описание",class:'w-deskript'},
+                {key: "whom",label: "в отношении",class:''},
+                {key: "reg_type",label: "Тип фиксации"},
+                {key: "prision",label: "Учреждение"},                
+                {key: "operator",label: "Оператор"},
+                {key: "action",label: "Действие"},
+                ]
         }
     },
     computed:{
@@ -391,6 +407,15 @@ export default {
             this.distr.file = [];
         }
     },
+    filters: {
+        truncate: function (text, length, suffix) {
+            if (text.length > length) {
+                return text.substring(0, length) + suffix;
+            } else {
+                return text;
+            }
+        },
+    }
 
 }
 </script>
