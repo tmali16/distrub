@@ -21,7 +21,8 @@ import {
     AlertPlugin,
     TabsPlugin,
     ToastPlugin,
-    FormGroupPlugin 
+    FormGroupPlugin,
+    PaginationPlugin 
 } from 'bootstrap-vue'
 
 import Vuelidate from 'vuelidate';
@@ -29,6 +30,7 @@ require('particles.js');
 
 
 Vue.use(FormGroupPlugin )
+Vue.use(PaginationPlugin   )
 Vue.use(Vuelidate)
 Vue.use(ModalPlugin )
 Vue.use(FormSelectPlugin)

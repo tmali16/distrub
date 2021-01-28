@@ -1,6 +1,8 @@
 <?php
 namespace Database\Seeders;
 use Illuminate\Database\Seeder;
+use \Database\factories\DistrubFactory;
+use App\Models\Distrub;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(ConnectRelationshipsSeeder::class);
         $this->call(UserSeeder::class);
+        // $this->call(\Database\factories\DistrubFactory::class);
+        factory(Distrub::class, 50)->create();
     }
 }

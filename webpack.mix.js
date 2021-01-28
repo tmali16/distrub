@@ -14,6 +14,7 @@ const tailwindcss = require('tailwindcss');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .postCss('resources/css/tailwind.css','public/css',[
-        tailwindcss
-    ]).disableNotifications();
+    // .postCss('resources/css/tailwind.css','public/css',[
+    //     tailwindcss
+    // ])
+    .disableNotifications();

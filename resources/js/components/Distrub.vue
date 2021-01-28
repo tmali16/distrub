@@ -1,58 +1,66 @@
 <template>
-<div class="">
+<div class=" overflow-hidden" style="height: 40rem;">
     <div class="alert alert-success " id="alert" role="alert"></div>
     <nav>
-        <div class="overflow-hidden sm:rounded-md">
+        <div class="overflow-hidden sm:rounded-md ">
             <div class="px-0 py-3 bg-white sm:p-6">
                 <div class="grid grid-cols-2 gap-2">
                     <div class="col-span-6 sm:col-span-3 inline-block">
                         <!-- <button @click="addNewDistrub" class="px-6 py-2 bg-blue-500 inline-block   border-white hover:bg-blue-600 text-white"><i class="fa fa-plus-square"></i></button> -->
                         <a href='/distrub/create' class="px-6 py-2 bg-blue-500 inline-block   border-white hover:bg-blue-600 text-white"><i class="fa fa-plus-square"></i></a>
-                        <b-form-select v-model="limit" size="sm" :options="limitList" class="px-6 py-2 min-w-10 w-20 m-0 inline-block border border-gray-700" @change="getList"></b-form-select>
+                        <b-form-select v-model="perPage" size="sm" :options="limitList" class="px-6 py-2 min-w-10 w-20 m-0 inline-block border border-gray-700" @change="getList"></b-form-select>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
-
+    <div class="">
     <!-- ---------------- TABLE ------------------- -->
-    <b-table :items="dataRes.data" :fields="fields" thead-tr-class="bg-blue-400 text-white"
-                tbody-tr-class="bg-white border-bottom border-gray-600"
-                details-td-class="py-2 px-3"
-      @row-selected="onRowSelected" select-mode="single">
-            <template #cell(index)="data">
-                {{ data.index + 1 }}
-            </template>
-            <template #cell(dateTime)="data">
-                {{ data.item.dates + " " + data.item.times }}
-            </template>
-            <template #cell(descript)="data">
-                {{ data.item.descript | truncate(55, '...') }}
-            </template>
-            <template #cell(whom)="data">
-                {{ data.item.whom == "employee" ? 'сотрудника' : 'Осужденного/Подследственного'}}
-            </template>
-            <template #cell(reg_type)="data">
-                {{data.item.dvr_type == "bwc" ? 'Носимый видеорегистратор' : 'Видеонаблюдение'}}
-            </template>
-            <template #cell(prision)="data">
-                {{data.item.prision.name}}
-            </template>
-            <template #cell(operator)="data">
-                {{ data.item.operator.fname + " " + data.item.operator.name.substring(0, 1)+"."}}
-            </template>
-            <template #cell(action)="data">
-
-                <button type="button" @click="viewDistrub(data.index)" class="px-5 py-2 text-white bg-blue-500 hover:bg-blue-700"><i class="fa fa-eye"></i></button>
-                <button type="button" @click="editDistrub(data.index)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-edit"></i></button>
-                <button type="button" @click="deleteDistrub(data.index)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-times"></i></button>
-
-            </template>
-    </b-table>
-
-    <!-- ----------------pagination------------------- -->
-    <pagination align="center" :data="dataRes" @pagination-change-page="getList"></pagination>
-
+    <div class="py-2 " style="height: 35rem">
+        <b-table :items="dataRes.data" class="" :fields="fields" sticky-header="550px"
+                    tbody-class="tabl-h-30 overflow-auto"
+                    selectable                    
+                    :current-page="currentPage" :per-page="perPage"
+                    tbody-tr-class="bg-white border-bottom border-gray-600 "
+                    details-td-class="py-2 px-3" @row-selected="onRowSelected" select-mode="single">
+                <template #cell(index)="data">
+                    {{ data.index + 1 }}
+                </template>
+                <template #cell(dateTime)="data">
+                    {{ data.item.dates + " " + data.item.times }}
+                </template>
+                <template #cell(descript)="data">
+                    {{ data.item.descript | truncate(15, '...') }}
+                </template>
+                <template #cell(whom)="data">
+                    {{ data.item.whom == "employee" ? 'сотрудника' : 'Осужденного/Подследственного'}}
+                </template>
+                <template #cell(reg_type)="data">
+                    {{data.item.dvr_type == "bwc" ? 'Носимый видеорегистратор' : 'Видеонаблюдение'}}
+                </template>
+                <template #cell(prision)="data">
+                    {{data.item.prision.name}}
+                </template>
+                <template #cell(operator)="data">
+                    {{ data.item.operator.fname + " " + data.item.operator.name.substring(0, 1)+"."}}
+                </template>
+                <template #cell(action)="data">
+                    <button type="button" @click="viewDistrub(data.index)" class="px-5 py-2 text-white bg-blue-500 hover:bg-blue-700"><i class="fa fa-eye"></i></button>
+                    <button type="button" @click="editDistrub(data.index)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-edit"></i></button>
+                    <button type="button" @click="deleteDistrub(data.index)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-times"></i></button>
+                </template>
+        </b-table>
+        </div>
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="totalRows"
+          :per-page="perPage"          
+          size="md"
+          pills
+          class="my-0"
+        ></b-pagination>
+    
+    
     <!-- ---------------- Modal ------------------- -->
     <b-modal v-model="addModalOpen" modal-class="animate__animated animate__zoomIn" size="lg" content-class="shadow" hide-footer title="Новое нарушение" no-fade>
         <form @submit.prevent="save">
@@ -175,6 +183,7 @@
         </form>
     </b-modal>
 </div>
+</div>
 </template>
 
 <script>
@@ -186,6 +195,9 @@ export default {
         return{
             addModalOpen: false,
             type: 'create',
+            totalRows: 1,
+            currentPage: 1,
+            perPage: 10,
             distr: {
                 datetime: '',
                 descript: '',
@@ -249,8 +261,9 @@ export default {
     methods: {
         getList(page = 1){
             axios.post("/api/distrub/list", {"limit":this.limit}).then(d=>{
-                this.dataRes = d.data.data
-
+                this.dataRes = d.data
+                console.log(d.data.data)
+                this.totalRows = d.data.data.length
             }).catch(e=>{
                 console.log(e)
             })

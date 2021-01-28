@@ -33,7 +33,7 @@ class DistrubController extends Controller
     public function list(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'limit' => ['required', 'integer','min:10'],
+            // 'limit' => ['required', 'integer','min:10'],
         ]);
         if($validator->fails()){
             $this->ActStatus = 500;
@@ -43,7 +43,7 @@ class DistrubController extends Controller
             ];
         }else{
             $limit = $request->limit;
-            $distrub = Distrub::paginate($limit);
+            $distrub = Distrub::all();
             $this->ActStatus = 200;
             $data = [
                 'status'=>$this->ActStatus,
