@@ -26,7 +26,7 @@
                         </template>
                         <template #cell(action)="data">
                             <button type="button" @click="editOperator(data.index)" class="px-5 py-2 text-white bg-green-500 hover:bg-green-700"><i class="fa fa-user-edit"></i></button>
-                            <button type="button" @click="deleteOperator(data.index)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-user-times"></i></button>
+                            <button type="button" @click="deleteOperator(data.item.id)" class="px-5 py-2 text-white bg-red-500 hover:bg-red-700"><i class="fa fa-user-times"></i></button>
                         </template>
                 </b-table>
             </div>
@@ -218,11 +218,12 @@ export default {
             mod.modal("hide")
 
         },
-        deleteOperator(index){
+        deleteOperator(index){            
             this.type = 'delete'
             let res = confirm("Вы действительно хотите удалить данную запись?")
             if(res){
-                let da = this.dataRes.data[i];
+                let ind = this.data.data.findIndex(e=>e.id == index)                
+                let da = this.data.data[ind];                
                 axios.post("/api/employe/delete", da).then(d=>{
                     let alert = $("#alert");
                     if(d.data.status == 200){
@@ -239,12 +240,12 @@ export default {
                         alert.show();
                     }
                     setTimeout(function(){alert.hide()},5000);
-                    this.getList();
+                    this.get();
                 }).catch(e=>{
                     let alert = $("#alert");
                     alert.removeClass("alert-success")
                     alert.addClass("alert-danger")
-                    alert.text(e.message);
+                    alert.text('Front ERROR:'+e.message);
                     alert.show();
                     setTimeout(function(){alert.hide()},5000);
                 })

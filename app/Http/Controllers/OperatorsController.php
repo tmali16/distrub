@@ -112,9 +112,7 @@ class OperatorsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => ['required', 'exists:App\Models\Operators,id'],
-            'fname' => ['required', 'min:3'],
-            'name' => ['required', 'min:3'],
-            'rank.id' => ['required'],
+            
         ]);
         if($validator->fails()){
             $data = [
